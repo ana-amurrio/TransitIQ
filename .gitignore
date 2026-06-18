@@ -1,0 +1,8 @@
+.DS_Store
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Large raw data downloads — re-run collect_*.py scripts to regenerate
+Project/data/raw/
+Project/data/outputs/processing_layer_handoff.pdf

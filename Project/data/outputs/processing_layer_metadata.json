@@ -1,0 +1,33 @@
+{
+  "source_master": "/Users/bris/Desktop/ADI/Hackathons/USAII/Project/data/outputs/master_tract_data.csv",
+  "tract_count": 328,
+  "assumptions": {
+    "missed_care_rate": 0.05,
+    "cost_per_missed_episode": 1200,
+    "growth_rate": 0.025,
+    "average_commute_distance_miles": 7.5,
+    "components": [
+      "lost_wages",
+      "healthcare",
+      "environment",
+      "education",
+      "forgone_affordability"
+    ],
+    "forecasting": "Per-component linear trend with differentiated rates: wages use BLS wage inflation, healthcare uses 4.5%/yr, education uses Census population growth, environment and affordability use the blended growth rate.",
+    "overlap_adjustment": "Potentially overlapping ACS groups use conservative max/min proxies instead of additive counts. Affected workers use max(transit commuters, workers without vehicles). Healthcare population uses max(no-vehicle household population, transit commuters). Forced drive commuters are capped by non-transit commuters and scaled to the affected-worker estimate. H+T affordability burden uses a household-count proxy instead of applying tract-level excess cost to every household."
+  },
+  "data_quality_notes": [
+    "Using disability_actual (B18101 with-disability cells) for dependency weight.",
+    "Elderly population (B01001, 65+) included in dependency weight.",
+    "Single-parent households (B11003) included in dependency weight."
+  ],
+  "outputs": {
+    "dependency": "/Users/bris/Desktop/ADI/Hackathons/USAII/Project/data/processed/transit_dependency_weights.csv",
+    "hardship": "/Users/bris/Desktop/ADI/Hackathons/USAII/Project/data/processed/transit_hardship_index.csv",
+    "segments": "/Users/bris/Desktop/ADI/Hackathons/USAII/Project/data/processed/vulnerability_segments.csv",
+    "costs": "/Users/bris/Desktop/ADI/Hackathons/USAII/Project/data/processed/cost_of_inaction_by_tract.csv",
+    "results": "/Users/bris/Desktop/ADI/Hackathons/USAII/Project/data/outputs/processing_layer_results.csv",
+    "summary": "/Users/bris/Desktop/ADI/Hackathons/USAII/Project/data/outputs/processing_layer_summary.csv",
+    "metadata": "/Users/bris/Desktop/ADI/Hackathons/USAII/Project/data/outputs/processing_layer_metadata.json"
+  }
+}

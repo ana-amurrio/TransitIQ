@@ -1,0 +1,667 @@
+AREA_TITLE,OCC_CODE,OCC_TITLE,H_MEAN,H_MEDIAN,A_MEAN,A_MEDIAN
+"Cincinnati, OH-KY-IN",00-0000,All Occupations,30.78,23.31,64020.0,48490.0
+"Cincinnati, OH-KY-IN",11-0000,Management Occupations,61.49,51.19,127900.0,106460.0
+"Cincinnati, OH-KY-IN",11-1011,Chief Executives,136.38,102.06,283670.0,212290.0
+"Cincinnati, OH-KY-IN",11-1021,General and Operations Managers,58.3,47.0,121260.0,97760.0
+"Cincinnati, OH-KY-IN",11-1031,Legislators,,,54720.0,33400.0
+"Cincinnati, OH-KY-IN",11-2011,Advertising and Promotions Managers,54.46,49.08,113270.0,102090.0
+"Cincinnati, OH-KY-IN",11-2021,Marketing Managers,72.86,67.27,151540.0,139920.0
+"Cincinnati, OH-KY-IN",11-2022,Sales Managers,72.24,62.28,150260.0,129540.0
+"Cincinnati, OH-KY-IN",11-2032,Public Relations Managers,59.8,50.68,124370.0,105410.0
+"Cincinnati, OH-KY-IN",11-2033,Fundraising Managers,58.45,50.2,121580.0,104420.0
+"Cincinnati, OH-KY-IN",11-3012,Administrative Services Managers,52.9,47.51,110030.0,98820.0
+"Cincinnati, OH-KY-IN",11-3013,Facilities Managers,49.52,46.65,103010.0,97020.0
+"Cincinnati, OH-KY-IN",11-3021,Computer and Information Systems Managers,84.02,79.92,174760.0,166230.0
+"Cincinnati, OH-KY-IN",11-3031,Financial Managers,77.39,67.67,160960.0,140750.0
+"Cincinnati, OH-KY-IN",11-3051,Industrial Production Managers,60.31,58.21,125440.0,121070.0
+"Cincinnati, OH-KY-IN",11-3061,Purchasing Managers,72.19,68.09,150150.0,141620.0
+"Cincinnati, OH-KY-IN",11-3071,"Transportation, Storage, and Distribution Managers",54.23,47.6,112790.0,99010.0
+"Cincinnati, OH-KY-IN",11-3111,Compensation and Benefits Managers,69.69,61.69,144940.0,128300.0
+"Cincinnati, OH-KY-IN",11-3121,Human Resources Managers,70.36,62.68,146340.0,130380.0
+"Cincinnati, OH-KY-IN",11-3131,Training and Development Managers,60.08,56.58,124970.0,117680.0
+"Cincinnati, OH-KY-IN",11-9021,Construction Managers,52.0,48.35,108160.0,100570.0
+"Cincinnati, OH-KY-IN",11-9031,"Education and Childcare Administrators, Preschool and Daycare",24.94,22.08,51870.0,45930.0
+"Cincinnati, OH-KY-IN",11-9032,"Education Administrators, Kindergarten through Secondary",,,100350.0,101600.0
+"Cincinnati, OH-KY-IN",11-9033,"Education Administrators, Postsecondary",52.57,39.63,109350.0,82440.0
+"Cincinnati, OH-KY-IN",11-9039,"Education Administrators, All Other",32.95,26.16,68530.0,54420.0
+"Cincinnati, OH-KY-IN",11-9041,Architectural and Engineering Managers,83.65,79.82,173990.0,166030.0
+"Cincinnati, OH-KY-IN",11-9051,Food Service Managers,31.23,29.77,64950.0,61910.0
+"Cincinnati, OH-KY-IN",11-9072,"Entertainment and Recreation Managers, Except Gambling",33.12,27.83,68900.0,57890.0
+"Cincinnati, OH-KY-IN",11-9081,Lodging Managers,32.41,29.61,67410.0,61600.0
+"Cincinnati, OH-KY-IN",11-9111,Medical and Health Services Managers,58.27,50.65,121200.0,105360.0
+"Cincinnati, OH-KY-IN",11-9121,Natural Sciences Managers,75.5,78.98,157030.0,164270.0
+"Cincinnati, OH-KY-IN",11-9131,Postmasters and Mail Superintendents,47.3,45.0,98380.0,93600.0
+"Cincinnati, OH-KY-IN",11-9141,"Property, Real Estate, and Community Association Managers",35.96,28.98,74800.0,60270.0
+"Cincinnati, OH-KY-IN",11-9151,Social and Community Service Managers,37.75,36.45,78510.0,75820.0
+"Cincinnati, OH-KY-IN",11-9161,Emergency Management Directors,42.78,41.39,88980.0,86090.0
+"Cincinnati, OH-KY-IN",11-9171,Funeral Home Managers,41.15,43.54,85580.0,90560.0
+"Cincinnati, OH-KY-IN",11-9179,"Personal Service Managers, All Other",32.51,25.96,67620.0,54000.0
+"Cincinnati, OH-KY-IN",11-9199,"Managers, All Other",66.18,64.31,137650.0,133760.0
+"Cincinnati, OH-KY-IN",13-0000,Business and Financial Operations Occupations,41.65,37.33,86640.0,77640.0
+"Cincinnati, OH-KY-IN",13-1020,Buyers and Purchasing Agents,37.38,35.84,77750.0,74540.0
+"Cincinnati, OH-KY-IN",13-1031,"Claims Adjusters, Examiners, and Investigators",33.14,29.97,68930.0,62330.0
+"Cincinnati, OH-KY-IN",13-1041,Compliance Officers,39.93,37.76,83060.0,78540.0
+"Cincinnati, OH-KY-IN",13-1051,Cost Estimators,39.01,36.56,81150.0,76040.0
+"Cincinnati, OH-KY-IN",13-1071,Human Resources Specialists,35.79,32.41,74440.0,67420.0
+"Cincinnati, OH-KY-IN",13-1075,Labor Relations Specialists,41.39,37.38,86090.0,77750.0
+"Cincinnati, OH-KY-IN",13-1081,Logisticians,40.19,37.42,83590.0,77830.0
+"Cincinnati, OH-KY-IN",13-1082,Project Management Specialists,49.13,46.68,102200.0,97090.0
+"Cincinnati, OH-KY-IN",13-1111,Management Analysts,47.55,42.75,98900.0,88910.0
+"Cincinnati, OH-KY-IN",13-1121,"Meeting, Convention, and Event Planners",27.11,24.63,56390.0,51220.0
+"Cincinnati, OH-KY-IN",13-1131,Fundraisers,33.79,31.56,70280.0,65650.0
+"Cincinnati, OH-KY-IN",13-1141,"Compensation, Benefits, and Job Analysis Specialists",36.26,35.95,75410.0,74770.0
+"Cincinnati, OH-KY-IN",13-1151,Training and Development Specialists,35.27,33.17,73360.0,68990.0
+"Cincinnati, OH-KY-IN",13-1161,Market Research Analysts and Marketing Specialists,38.74,33.85,80570.0,70410.0
+"Cincinnati, OH-KY-IN",13-1199,"Business Operations Specialists, All Other",39.53,36.33,82230.0,75570.0
+"Cincinnati, OH-KY-IN",13-2011,Accountants and Auditors,41.81,37.91,86970.0,78860.0
+"Cincinnati, OH-KY-IN",13-2020,Property Appraisers and Assessors,34.62,34.99,72020.0,72770.0
+"Cincinnati, OH-KY-IN",13-2031,Budget Analysts,42.18,39.2,87740.0,81530.0
+"Cincinnati, OH-KY-IN",13-2041,Credit Analysts,41.29,36.3,85890.0,75500.0
+"Cincinnati, OH-KY-IN",13-2051,Financial and Investment Analysts,47.91,41.75,99640.0,86840.0
+"Cincinnati, OH-KY-IN",13-2052,Personal Financial Advisors,72.99,45.84,151810.0,95350.0
+"Cincinnati, OH-KY-IN",13-2053,Insurance Underwriters,42.08,39.04,87530.0,81190.0
+"Cincinnati, OH-KY-IN",13-2054,Financial Risk Specialists,49.68,47.89,103320.0,99620.0
+"Cincinnati, OH-KY-IN",13-2061,Financial Examiners,41.54,38.88,86400.0,80870.0
+"Cincinnati, OH-KY-IN",13-2071,Credit Counselors,28.14,27.9,58540.0,58020.0
+"Cincinnati, OH-KY-IN",13-2072,Loan Officers,38.76,31.6,80610.0,65720.0
+"Cincinnati, OH-KY-IN",13-2081,"Tax Examiners and Collectors, and Revenue Agents",30.86,28.64,64200.0,59570.0
+"Cincinnati, OH-KY-IN",13-2082,Tax Preparers,22.5,22.49,46810.0,46780.0
+"Cincinnati, OH-KY-IN",13-2099,"Financial Specialists, All Other",41.3,39.04,85910.0,81200.0
+"Cincinnati, OH-KY-IN",15-0000,Computer and Mathematical Occupations,49.05,47.49,102030.0,98780.0
+"Cincinnati, OH-KY-IN",15-1211,Computer Systems Analysts,52.48,48.69,109150.0,101270.0
+"Cincinnati, OH-KY-IN",15-1212,Information Security Analysts,55.4,51.92,115230.0,108000.0
+"Cincinnati, OH-KY-IN",15-1231,Computer Network Support Specialists,34.67,31.53,72120.0,65580.0
+"Cincinnati, OH-KY-IN",15-1232,Computer User Support Specialists,28.23,25.65,58710.0,53360.0
+"Cincinnati, OH-KY-IN",15-1241,Computer Network Architects,62.13,61.98,129230.0,128910.0
+"Cincinnati, OH-KY-IN",15-1242,Database Administrators,48.8,48.32,101500.0,100510.0
+"Cincinnati, OH-KY-IN",15-1243,Database Architects,62.91,62.69,130860.0,130400.0
+"Cincinnati, OH-KY-IN",15-1244,Network and Computer Systems Administrators,48.96,47.45,101840.0,98690.0
+"Cincinnati, OH-KY-IN",15-1251,Computer Programmers,56.17,57.65,116840.0,119900.0
+"Cincinnati, OH-KY-IN",15-1252,Software Developers,57.68,54.44,119970.0,113240.0
+"Cincinnati, OH-KY-IN",15-1253,Software Quality Assurance Analysts and Testers,43.94,40.37,91400.0,83960.0
+"Cincinnati, OH-KY-IN",15-1254,Web Developers,50.73,43.92,105510.0,91350.0
+"Cincinnati, OH-KY-IN",15-1255,Web and Digital Interface Designers,43.8,39.62,91100.0,82410.0
+"Cincinnati, OH-KY-IN",15-1299,"Computer Occupations, All Other",46.96,46.45,97680.0,96620.0
+"Cincinnati, OH-KY-IN",15-2011,Actuaries,58.81,50.04,122320.0,104070.0
+"Cincinnati, OH-KY-IN",15-2031,Operations Research Analysts,52.01,50.89,108170.0,105840.0
+"Cincinnati, OH-KY-IN",15-2041,Statisticians,48.97,47.42,101860.0,98640.0
+"Cincinnati, OH-KY-IN",15-2051,Data Scientists,49.21,47.77,102360.0,99350.0
+"Cincinnati, OH-KY-IN",17-0000,Architecture and Engineering Occupations,48.51,46.56,100910.0,96850.0
+"Cincinnati, OH-KY-IN",17-1011,"Architects, Except Landscape and Naval",47.71,47.84,99250.0,99520.0
+"Cincinnati, OH-KY-IN",17-1012,Landscape Architects,36.3,30.85,75500.0,64170.0
+"Cincinnati, OH-KY-IN",17-1021,Cartographers and Photogrammetrists,39.8,38.46,82770.0,80000.0
+"Cincinnati, OH-KY-IN",17-1022,Surveyors,41.24,37.56,85770.0,78130.0
+"Cincinnati, OH-KY-IN",17-2011,Aerospace Engineers,66.58,66.07,138480.0,137420.0
+"Cincinnati, OH-KY-IN",17-2031,Bioengineers and Biomedical Engineers,61.32,61.29,127540.0,127490.0
+"Cincinnati, OH-KY-IN",17-2041,Chemical Engineers,54.11,55.76,112540.0,115970.0
+"Cincinnati, OH-KY-IN",17-2051,Civil Engineers,46.82,43.55,97390.0,90580.0
+"Cincinnati, OH-KY-IN",17-2061,Computer Hardware Engineers,51.68,50.91,107500.0,105880.0
+"Cincinnati, OH-KY-IN",17-2071,Electrical Engineers,51.81,49.05,107770.0,102030.0
+"Cincinnati, OH-KY-IN",17-2072,"Electronics Engineers, Except Computer",52.77,50.0,109760.0,103990.0
+"Cincinnati, OH-KY-IN",17-2081,Environmental Engineers,53.38,55.32,111030.0,115070.0
+"Cincinnati, OH-KY-IN",17-2111,"Health and Safety Engineers, Except Mining Safety Engineers and Inspectors",51.54,50.14,107190.0,104300.0
+"Cincinnati, OH-KY-IN",17-2112,Industrial Engineers,52.65,49.29,109510.0,102510.0
+"Cincinnati, OH-KY-IN",17-2131,Materials Engineers,52.7,49.29,109610.0,102530.0
+"Cincinnati, OH-KY-IN",17-2141,Mechanical Engineers,51.34,48.36,106780.0,100580.0
+"Cincinnati, OH-KY-IN",17-2199,"Engineers, All Other",56.48,52.87,117480.0,109960.0
+"Cincinnati, OH-KY-IN",17-3011,Architectural and Civil Drafters,33.0,30.04,68640.0,62480.0
+"Cincinnati, OH-KY-IN",17-3012,Electrical and Electronics Drafters,35.42,32.61,73670.0,67820.0
+"Cincinnati, OH-KY-IN",17-3013,Mechanical Drafters,35.96,34.04,74800.0,70800.0
+"Cincinnati, OH-KY-IN",17-3019,"Drafters, All Other",30.0,28.42,62400.0,59120.0
+"Cincinnati, OH-KY-IN",17-3021,Aerospace Engineering and Operations Technologists and Technicians,36.27,36.9,75440.0,76750.0
+"Cincinnati, OH-KY-IN",17-3022,Civil Engineering Technologists and Technicians,29.92,29.4,62230.0,61160.0
+"Cincinnati, OH-KY-IN",17-3023,Electrical and Electronic Engineering Technologists and Technicians,36.1,36.42,75090.0,75740.0
+"Cincinnati, OH-KY-IN",17-3024,Electro-Mechanical and Mechatronics Technologists and Technicians,33.4,31.44,69480.0,65380.0
+"Cincinnati, OH-KY-IN",17-3025,Environmental Engineering Technologists and Technicians,29.3,24.74,60940.0,51460.0
+"Cincinnati, OH-KY-IN",17-3026,Industrial Engineering Technologists and Technicians,33.86,36.1,70440.0,75090.0
+"Cincinnati, OH-KY-IN",17-3027,Mechanical Engineering Technologists and Technicians,32.84,31.9,68300.0,66350.0
+"Cincinnati, OH-KY-IN",17-3028,Calibration Technologists and Technicians,32.34,30.04,67260.0,62480.0
+"Cincinnati, OH-KY-IN",17-3029,"Engineering Technologists and Technicians, Except Drafters, All Other",31.52,28.58,65560.0,59450.0
+"Cincinnati, OH-KY-IN",17-3031,Surveying and Mapping Technicians,26.91,24.88,55960.0,51750.0
+"Cincinnati, OH-KY-IN",19-0000,"Life, Physical, and Social Science Occupations",40.9,37.21,85080.0,77390.0
+"Cincinnati, OH-KY-IN",19-1012,Food Scientists and Technologists,44.59,45.64,92750.0,94920.0
+"Cincinnati, OH-KY-IN",19-1013,Soil and Plant Scientists,29.69,23.18,61750.0,48210.0
+"Cincinnati, OH-KY-IN",19-1021,Biochemists and Biophysicists,39.61,43.65,82400.0,90780.0
+"Cincinnati, OH-KY-IN",19-1022,Microbiologists,36.67,29.18,76280.0,60690.0
+"Cincinnati, OH-KY-IN",19-1023,Zoologists and Wildlife Biologists,38.48,37.78,80040.0,78590.0
+"Cincinnati, OH-KY-IN",19-1029,"Biological Scientists, All Other",41.42,38.75,86160.0,80600.0
+"Cincinnati, OH-KY-IN",19-1031,Conservation Scientists,35.42,31.98,73670.0,66520.0
+"Cincinnati, OH-KY-IN",19-1041,Epidemiologists,,,,
+"Cincinnati, OH-KY-IN",19-1042,"Medical Scientists, Except Epidemiologists",45.64,37.79,94930.0,78590.0
+"Cincinnati, OH-KY-IN",19-2012,Physicists,54.48,55.24,113320.0,114900.0
+"Cincinnati, OH-KY-IN",19-2031,Chemists,43.6,39.48,90680.0,82110.0
+"Cincinnati, OH-KY-IN",19-2032,Materials Scientists,48.23,49.26,100310.0,102450.0
+"Cincinnati, OH-KY-IN",19-2041,"Environmental Scientists and Specialists, Including Health",37.22,33.68,77420.0,70060.0
+"Cincinnati, OH-KY-IN",19-2042,"Geoscientists, Except Hydrologists and Geographers",38.31,35.28,79680.0,73390.0
+"Cincinnati, OH-KY-IN",19-2099,"Physical Scientists, All Other",58.59,58.69,121860.0,122080.0
+"Cincinnati, OH-KY-IN",19-3011,Economists,62.2,56.61,129370.0,117750.0
+"Cincinnati, OH-KY-IN",19-3033,Clinical and Counseling Psychologists,57.08,51.36,118730.0,106820.0
+"Cincinnati, OH-KY-IN",19-3034,School Psychologists,44.38,43.67,92310.0,90830.0
+"Cincinnati, OH-KY-IN",19-3039,"Psychologists, All Other",61.83,62.24,128610.0,129460.0
+"Cincinnati, OH-KY-IN",19-3051,Urban and Regional Planners,39.3,37.83,81750.0,78680.0
+"Cincinnati, OH-KY-IN",19-3099,"Social Scientists and Related Workers, All Other",40.37,38.1,83970.0,79250.0
+"Cincinnati, OH-KY-IN",19-4013,Food Science Technicians,26.1,28.65,54280.0,59580.0
+"Cincinnati, OH-KY-IN",19-4021,Biological Technicians,25.96,23.13,53990.0,48120.0
+"Cincinnati, OH-KY-IN",19-4031,Chemical Technicians,28.79,27.78,59890.0,57780.0
+"Cincinnati, OH-KY-IN",19-4042,"Environmental Science and Protection Technicians, Including Health",24.57,24.0,51100.0,49910.0
+"Cincinnati, OH-KY-IN",19-4061,Social Science Research Assistants,33.02,30.13,68690.0,62670.0
+"Cincinnati, OH-KY-IN",19-4092,Forensic Science Technicians,34.0,30.9,70720.0,64280.0
+"Cincinnati, OH-KY-IN",19-4099,"Life, Physical, and Social Science Technicians, All Other",25.0,23.88,52000.0,49680.0
+"Cincinnati, OH-KY-IN",19-5011,Occupational Health and Safety Specialists,43.75,41.61,91000.0,86550.0
+"Cincinnati, OH-KY-IN",19-5012,Occupational Health and Safety Technicians,33.54,33.81,69750.0,70320.0
+"Cincinnati, OH-KY-IN",21-0000,Community and Social Service Occupations,28.25,26.79,58770.0,55720.0
+"Cincinnati, OH-KY-IN",21-1012,"Educational, Guidance, and Career Counselors and Advisors",31.72,28.68,65990.0,59650.0
+"Cincinnati, OH-KY-IN",21-1013,Marriage and Family Therapists,36.04,29.07,74960.0,60470.0
+"Cincinnati, OH-KY-IN",21-1015,Rehabilitation Counselors,23.82,21.28,49540.0,44250.0
+"Cincinnati, OH-KY-IN",21-1018,"Substance Abuse, Behavioral Disorder, and Mental Health Counselors",29.35,27.72,61040.0,57660.0
+"Cincinnati, OH-KY-IN",21-1019,"Counselors, All Other",20.71,16.68,43090.0,34690.0
+"Cincinnati, OH-KY-IN",21-1021,"Child, Family, and School Social Workers",26.89,25.14,55930.0,52280.0
+"Cincinnati, OH-KY-IN",21-1022,Healthcare Social Workers,32.67,32.05,67960.0,66670.0
+"Cincinnati, OH-KY-IN",21-1023,Mental Health and Substance Abuse Social Workers,26.01,22.21,54100.0,46200.0
+"Cincinnati, OH-KY-IN",21-1029,"Social Workers, All Other",33.54,31.77,69750.0,66080.0
+"Cincinnati, OH-KY-IN",21-1091,Health Education Specialists,34.97,34.21,72730.0,71160.0
+"Cincinnati, OH-KY-IN",21-1092,Probation Officers and Correctional Treatment Specialists,30.72,28.32,63890.0,58910.0
+"Cincinnati, OH-KY-IN",21-1093,Social and Human Service Assistants,20.94,19.81,43540.0,41200.0
+"Cincinnati, OH-KY-IN",21-1094,Community Health Workers,25.59,23.13,53230.0,48120.0
+"Cincinnati, OH-KY-IN",21-1099,"Community and Social Service Specialists, All Other",21.82,21.83,45380.0,45400.0
+"Cincinnati, OH-KY-IN",21-2011,Clergy,29.03,28.96,60390.0,60250.0
+"Cincinnati, OH-KY-IN",21-2021,"Directors, Religious Activities and Education",24.3,24.2,50550.0,50340.0
+"Cincinnati, OH-KY-IN",21-2099,"Religious Workers, All Other",21.37,18.32,44450.0,38100.0
+"Cincinnati, OH-KY-IN",23-0000,Legal Occupations,57.39,46.75,119370.0,97240.0
+"Cincinnati, OH-KY-IN",23-1011,Lawyers,69.29,60.83,144120.0,126530.0
+"Cincinnati, OH-KY-IN",23-1021,"Administrative Law Judges, Adjudicators, and Hearing Officers",51.29,43.6,106680.0,90690.0
+"Cincinnati, OH-KY-IN",23-1023,"Judges, Magistrate Judges, and Magistrates",57.06,59.19,118690.0,123120.0
+"Cincinnati, OH-KY-IN",23-2011,Paralegals and Legal Assistants,31.07,29.42,64630.0,61200.0
+"Cincinnati, OH-KY-IN",23-2093,"Title Examiners, Abstractors, and Searchers",26.65,22.77,55440.0,47360.0
+"Cincinnati, OH-KY-IN",23-2099,"Legal Support Workers, All Other",46.78,35.89,97310.0,74660.0
+"Cincinnati, OH-KY-IN",25-0000,Educational Instruction and Library Occupations,28.69,25.22,59670.0,52460.0
+"Cincinnati, OH-KY-IN",25-1011,"Business Teachers, Postsecondary",,,92090.0,77000.0
+"Cincinnati, OH-KY-IN",25-1021,"Computer Science Teachers, Postsecondary",,,85130.0,77610.0
+"Cincinnati, OH-KY-IN",25-1022,"Mathematical Science Teachers, Postsecondary",,,74880.0,74970.0
+"Cincinnati, OH-KY-IN",25-1032,"Engineering Teachers, Postsecondary",,,106590.0,102790.0
+"Cincinnati, OH-KY-IN",25-1042,"Biological Science Teachers, Postsecondary",,,78800.0,76110.0
+"Cincinnati, OH-KY-IN",25-1052,"Chemistry Teachers, Postsecondary",,,78940.0,78300.0
+"Cincinnati, OH-KY-IN",25-1054,"Physics Teachers, Postsecondary",,,77850.0,78970.0
+"Cincinnati, OH-KY-IN",25-1062,"Area, Ethnic, and Cultural Studies Teachers, Postsecondary",,,65210.0,72790.0
+"Cincinnati, OH-KY-IN",25-1063,"Economics Teachers, Postsecondary",,,107960.0,107290.0
+"Cincinnati, OH-KY-IN",25-1065,"Political Science Teachers, Postsecondary",,,80230.0,79960.0
+"Cincinnati, OH-KY-IN",25-1066,"Psychology Teachers, Postsecondary",,,65570.0,62110.0
+"Cincinnati, OH-KY-IN",25-1067,"Sociology Teachers, Postsecondary",,,67690.0,64580.0
+"Cincinnati, OH-KY-IN",25-1069,"Social Sciences Teachers, Postsecondary, All Other",,,77000.0,63130.0
+"Cincinnati, OH-KY-IN",25-1071,"Health Specialties Teachers, Postsecondary",,,85760.0,58950.0
+"Cincinnati, OH-KY-IN",25-1072,"Nursing Instructors and Teachers, Postsecondary",,,68990.0,63880.0
+"Cincinnati, OH-KY-IN",25-1081,"Education Teachers, Postsecondary",,,62170.0,59270.0
+"Cincinnati, OH-KY-IN",25-1111,"Criminal Justice and Law Enforcement Teachers, Postsecondary",,,71360.0,74960.0
+"Cincinnati, OH-KY-IN",25-1112,"Law Teachers, Postsecondary",,,86440.0,66560.0
+"Cincinnati, OH-KY-IN",25-1113,"Social Work Teachers, Postsecondary",,,50960.0,47930.0
+"Cincinnati, OH-KY-IN",25-1121,"Art, Drama, and Music Teachers, Postsecondary",,,66670.0,61360.0
+"Cincinnati, OH-KY-IN",25-1122,"Communications Teachers, Postsecondary",,,66370.0,61440.0
+"Cincinnati, OH-KY-IN",25-1123,"English Language and Literature Teachers, Postsecondary",,,71940.0,74150.0
+"Cincinnati, OH-KY-IN",25-1124,"Foreign Language and Literature Teachers, Postsecondary",,,59190.0,63060.0
+"Cincinnati, OH-KY-IN",25-1125,"History Teachers, Postsecondary",,,71870.0,79250.0
+"Cincinnati, OH-KY-IN",25-1126,"Philosophy and Religion Teachers, Postsecondary",,,77470.0,76670.0
+"Cincinnati, OH-KY-IN",25-1193,"Recreation and Fitness Studies Teachers, Postsecondary",,,69980.0,63190.0
+"Cincinnati, OH-KY-IN",25-1194,"Career/Technical Education Teachers, Postsecondary",29.83,27.29,62050.0,56750.0
+"Cincinnati, OH-KY-IN",25-1199,"Postsecondary Teachers, All Other",,,70110.0,57850.0
+"Cincinnati, OH-KY-IN",25-2011,"Preschool Teachers, Except Special Education",17.44,16.44,36280.0,34200.0
+"Cincinnati, OH-KY-IN",25-2012,"Kindergarten Teachers, Except Special Education",,,56010.0,54830.0
+"Cincinnati, OH-KY-IN",25-2021,"Elementary School Teachers, Except Special Education",,,65670.0,60940.0
+"Cincinnati, OH-KY-IN",25-2022,"Middle School Teachers, Except Special and Career/Technical Education",,,68960.0,62300.0
+"Cincinnati, OH-KY-IN",25-2023,"Career/Technical Education Teachers, Middle School",,,76640.0,62050.0
+"Cincinnati, OH-KY-IN",25-2031,"Secondary School Teachers, Except Special and Career/Technical Education",,,69050.0,63270.0
+"Cincinnati, OH-KY-IN",25-2032,"Career/Technical Education Teachers, Secondary School",,,78700.0,80260.0
+"Cincinnati, OH-KY-IN",25-2051,"Special Education Teachers, Preschool",,,69780.0,70790.0
+"Cincinnati, OH-KY-IN",25-2052,"Special Education Teachers, Kindergarten and Elementary School",,,65550.0,61600.0
+"Cincinnati, OH-KY-IN",25-2057,"Special Education Teachers, Middle School",,,72000.0,64230.0
+"Cincinnati, OH-KY-IN",25-2058,"Special Education Teachers, Secondary School",,,68120.0,65690.0
+"Cincinnati, OH-KY-IN",25-2059,"Special Education Teachers, All Other",,,61260.0,54840.0
+"Cincinnati, OH-KY-IN",25-3011,"Adult Basic Education, Adult Secondary Education, and English as a Second Language Instructors",26.21,30.14,54520.0,62680.0
+"Cincinnati, OH-KY-IN",25-3021,Self-Enrichment Teachers,20.11,17.98,41830.0,37390.0
+"Cincinnati, OH-KY-IN",25-3031,"Substitute Teachers, Short-Term",17.0,16.68,35360.0,34700.0
+"Cincinnati, OH-KY-IN",25-3041,Tutors,23.39,21.27,48650.0,44250.0
+"Cincinnati, OH-KY-IN",25-3099,"Teachers and Instructors, All Other",,,64060.0,50890.0
+"Cincinnati, OH-KY-IN",25-4012,Curators,30.91,28.33,64290.0,58930.0
+"Cincinnati, OH-KY-IN",25-4013,Museum Technicians and Conservators,24.09,22.05,50120.0,45860.0
+"Cincinnati, OH-KY-IN",25-4022,Librarians and Media Collections Specialists,30.73,29.66,63910.0,61700.0
+"Cincinnati, OH-KY-IN",25-4031,Library Technicians,17.67,17.01,36760.0,35390.0
+"Cincinnati, OH-KY-IN",25-9031,Instructional Coordinators,33.88,31.91,70460.0,66370.0
+"Cincinnati, OH-KY-IN",25-9044,"Teaching Assistants, Postsecondary",,,59040.0,49710.0
+"Cincinnati, OH-KY-IN",25-9045,"Teaching Assistants, Except Postsecondary",,,35550.0,35870.0
+"Cincinnati, OH-KY-IN",25-9099,"Educational Instruction and Library Workers, All Other",28.87,26.83,60050.0,55810.0
+"Cincinnati, OH-KY-IN",27-0000,"Arts, Design, Entertainment, Sports, and Media Occupations",28.7,23.36,59690.0,48590.0
+"Cincinnati, OH-KY-IN",27-1011,Art Directors,44.11,43.9,91740.0,91310.0
+"Cincinnati, OH-KY-IN",27-1012,Craft Artists,18.74,18.54,38970.0,38550.0
+"Cincinnati, OH-KY-IN",27-1013,"Fine Artists, Including Painters, Sculptors, and Illustrators",18.84,15.67,39190.0,32600.0
+"Cincinnati, OH-KY-IN",27-1019,"Artists and Related Workers, All Other",30.26,21.52,62930.0,44760.0
+"Cincinnati, OH-KY-IN",27-1021,Commercial and Industrial Designers,37.01,36.48,76980.0,75870.0
+"Cincinnati, OH-KY-IN",27-1022,Fashion Designers,27.77,23.75,57750.0,49390.0
+"Cincinnati, OH-KY-IN",27-1023,Floral Designers,16.29,16.31,33890.0,33920.0
+"Cincinnati, OH-KY-IN",27-1024,Graphic Designers,28.69,26.77,59670.0,55690.0
+"Cincinnati, OH-KY-IN",27-1025,Interior Designers,30.63,28.08,63700.0,58400.0
+"Cincinnati, OH-KY-IN",27-1026,Merchandise Displayers and Window Trimmers,20.29,18.35,42200.0,38160.0
+"Cincinnati, OH-KY-IN",27-1027,Set and Exhibit Designers,25.36,24.4,52740.0,50760.0
+"Cincinnati, OH-KY-IN",27-2011,Actors,14.27,12.69,,
+"Cincinnati, OH-KY-IN",27-2012,Producers and Directors,34.7,30.01,72180.0,62410.0
+"Cincinnati, OH-KY-IN",27-2021,Athletes and Sports Competitors,,,66320.0,46430.0
+"Cincinnati, OH-KY-IN",27-2022,Coaches and Scouts,,,55690.0,37560.0
+"Cincinnati, OH-KY-IN",27-2023,"Umpires, Referees, and Other Sports Officials",,,35100.0,25830.0
+"Cincinnati, OH-KY-IN",27-2041,Music Directors and Composers,28.79,22.93,59890.0,47690.0
+"Cincinnati, OH-KY-IN",27-2042,Musicians and Singers,56.63,39.26,,
+"Cincinnati, OH-KY-IN",27-3011,Broadcast Announcers and Radio Disc Jockeys,36.19,21.96,75280.0,45680.0
+"Cincinnati, OH-KY-IN",27-3023,"News Analysts, Reporters, and Journalists",26.29,18.81,54690.0,39120.0
+"Cincinnati, OH-KY-IN",27-3031,Public Relations Specialists,31.88,29.04,66310.0,60410.0
+"Cincinnati, OH-KY-IN",27-3041,Editors,33.48,28.77,69630.0,59840.0
+"Cincinnati, OH-KY-IN",27-3042,Technical Writers,36.65,35.12,76230.0,73040.0
+"Cincinnati, OH-KY-IN",27-3043,Writers and Authors,34.84,36.22,72470.0,75330.0
+"Cincinnati, OH-KY-IN",27-3091,Interpreters and Translators,29.2,27.81,60740.0,57850.0
+"Cincinnati, OH-KY-IN",27-3092,Court Reporters and Simultaneous Captioners,35.23,31.79,73290.0,66110.0
+"Cincinnati, OH-KY-IN",27-3099,"Media and Communication Workers, All Other",23.85,20.8,49620.0,43250.0
+"Cincinnati, OH-KY-IN",27-4011,Audio and Video Technicians,25.41,23.41,52860.0,48690.0
+"Cincinnati, OH-KY-IN",27-4012,Broadcast Technicians,21.5,15.6,44710.0,32440.0
+"Cincinnati, OH-KY-IN",27-4014,Sound Engineering Technicians,29.79,27.71,61960.0,57630.0
+"Cincinnati, OH-KY-IN",27-4021,Photographers,20.39,17.21,42410.0,35810.0
+"Cincinnati, OH-KY-IN",27-4031,"Camera Operators, Television, Video, and Film",36.08,32.49,75040.0,67590.0
+"Cincinnati, OH-KY-IN",27-4032,Film and Video Editors,28.08,26.83,58400.0,55810.0
+"Cincinnati, OH-KY-IN",29-0000,Healthcare Practitioners and Technical Occupations,49.21,38.53,102370.0,80140.0
+"Cincinnati, OH-KY-IN",29-1011,Chiropractors,47.71,44.91,99230.0,93400.0
+"Cincinnati, OH-KY-IN",29-1021,"Dentists, General",103.59,98.19,215480.0,204240.0
+"Cincinnati, OH-KY-IN",29-1029,"Dentists, All Other Specialists",,,,
+"Cincinnati, OH-KY-IN",29-1031,Dietitians and Nutritionists,34.51,35.71,71780.0,74270.0
+"Cincinnati, OH-KY-IN",29-1041,Optometrists,71.14,64.06,147980.0,133240.0
+"Cincinnati, OH-KY-IN",29-1051,Pharmacists,63.76,65.06,132610.0,135330.0
+"Cincinnati, OH-KY-IN",29-1071,Physician Assistants,57.3,60.22,119190.0,125260.0
+"Cincinnati, OH-KY-IN",29-1081,Podiatrists,76.01,70.27,158100.0,146160.0
+"Cincinnati, OH-KY-IN",29-1122,Occupational Therapists,46.19,46.78,96080.0,97300.0
+"Cincinnati, OH-KY-IN",29-1123,Physical Therapists,48.99,48.11,101910.0,100070.0
+"Cincinnati, OH-KY-IN",29-1124,Radiation Therapists,54.3,48.48,112940.0,100840.0
+"Cincinnati, OH-KY-IN",29-1125,Recreational Therapists,30.5,31.23,63440.0,64960.0
+"Cincinnati, OH-KY-IN",29-1126,Respiratory Therapists,38.58,38.33,80240.0,79730.0
+"Cincinnati, OH-KY-IN",29-1127,Speech-Language Pathologists,44.39,44.59,92320.0,92760.0
+"Cincinnati, OH-KY-IN",29-1128,Exercise Physiologists,28.5,28.44,59270.0,59140.0
+"Cincinnati, OH-KY-IN",29-1129,"Therapists, All Other",43.24,46.12,89940.0,95930.0
+"Cincinnati, OH-KY-IN",29-1131,Veterinarians,61.73,58.64,128400.0,121970.0
+"Cincinnati, OH-KY-IN",29-1141,Registered Nurses,41.93,39.32,87210.0,81790.0
+"Cincinnati, OH-KY-IN",29-1151,Nurse Anesthetists,95.1,98.27,197810.0,204400.0
+"Cincinnati, OH-KY-IN",29-1171,Nurse Practitioners,58.31,62.55,121290.0,130100.0
+"Cincinnati, OH-KY-IN",29-1181,Audiologists,40.95,40.94,85170.0,85160.0
+"Cincinnati, OH-KY-IN",29-1211,Anesthesiologists,163.44,,339950.0,
+"Cincinnati, OH-KY-IN",29-1212,Cardiologists,243.36,,506180.0,
+"Cincinnati, OH-KY-IN",29-1214,Emergency Medicine Physicians,127.54,106.04,265280.0,220570.0
+"Cincinnati, OH-KY-IN",29-1215,Family Medicine Physicians,118.12,113.09,245690.0,235230.0
+"Cincinnati, OH-KY-IN",29-1216,General Internal Medicine Physicians,126.54,,263200.0,
+"Cincinnati, OH-KY-IN",29-1217,Neurologists,194.54,,404640.0,
+"Cincinnati, OH-KY-IN",29-1218,Obstetricians and Gynecologists,100.31,100.59,208650.0,209230.0
+"Cincinnati, OH-KY-IN",29-1221,"Pediatricians, General",102.37,101.4,212930.0,210910.0
+"Cincinnati, OH-KY-IN",29-1222,"Physicians, Pathologists",140.29,,291800.0,
+"Cincinnati, OH-KY-IN",29-1223,Psychiatrists,144.52,,300610.0,
+"Cincinnati, OH-KY-IN",29-1224,Radiologists,159.14,,331000.0,
+"Cincinnati, OH-KY-IN",29-1229,"Physicians, All Other",137.38,,285750.0,
+"Cincinnati, OH-KY-IN",29-1249,"Surgeons, All Other",,,,
+"Cincinnati, OH-KY-IN",29-1291,Acupuncturists,39.3,39.53,81730.0,82230.0
+"Cincinnati, OH-KY-IN",29-1292,Dental Hygienists,46.05,46.66,95790.0,97050.0
+"Cincinnati, OH-KY-IN",29-1299,"Healthcare Diagnosing or Treating Practitioners, All Other",60.05,53.47,124900.0,111230.0
+"Cincinnati, OH-KY-IN",29-2010,Clinical Laboratory Technologists and Technicians,30.38,30.23,63180.0,62890.0
+"Cincinnati, OH-KY-IN",29-2031,Cardiovascular Technologists and Technicians,34.4,38.13,71540.0,79320.0
+"Cincinnati, OH-KY-IN",29-2032,Diagnostic Medical Sonographers,41.57,39.28,86470.0,81710.0
+"Cincinnati, OH-KY-IN",29-2033,Nuclear Medicine Technologists,52.83,46.41,109890.0,96540.0
+"Cincinnati, OH-KY-IN",29-2034,Radiologic Technologists and Technicians,35.41,37.05,73650.0,77060.0
+"Cincinnati, OH-KY-IN",29-2035,Magnetic Resonance Imaging Technologists,40.43,39.54,84100.0,82250.0
+"Cincinnati, OH-KY-IN",29-2042,Emergency Medical Technicians,19.87,18.34,41330.0,38140.0
+"Cincinnati, OH-KY-IN",29-2043,Paramedics,23.78,22.67,49470.0,47150.0
+"Cincinnati, OH-KY-IN",29-2051,Dietetic Technicians,19.31,18.18,40160.0,37800.0
+"Cincinnati, OH-KY-IN",29-2052,Pharmacy Technicians,20.16,18.73,41930.0,38950.0
+"Cincinnati, OH-KY-IN",29-2053,Psychiatric Technicians,19.21,18.19,39950.0,37840.0
+"Cincinnati, OH-KY-IN",29-2055,Surgical Technologists,31.94,29.54,66440.0,61440.0
+"Cincinnati, OH-KY-IN",29-2056,Veterinary Technologists and Technicians,20.95,21.57,43580.0,44860.0
+"Cincinnati, OH-KY-IN",29-2057,Ophthalmic Medical Technicians,21.04,20.19,43760.0,41980.0
+"Cincinnati, OH-KY-IN",29-2061,Licensed Practical and Licensed Vocational Nurses,29.78,30.06,61940.0,62530.0
+"Cincinnati, OH-KY-IN",29-2072,Medical Records Specialists,27.19,24.82,56540.0,51630.0
+"Cincinnati, OH-KY-IN",29-2081,"Opticians, Dispensing",23.73,22.97,49360.0,47780.0
+"Cincinnati, OH-KY-IN",29-2091,Orthotists and Prosthetists,40.0,38.26,83190.0,79580.0
+"Cincinnati, OH-KY-IN",29-2092,Hearing Aid Specialists,32.23,31.01,67030.0,64490.0
+"Cincinnati, OH-KY-IN",29-2099,"Health Technologists and Technicians, All Other",26.87,22.84,55890.0,47510.0
+"Cincinnati, OH-KY-IN",29-9021,Health Information Technologists and Medical Registrars,30.47,30.25,63370.0,62930.0
+"Cincinnati, OH-KY-IN",29-9091,Athletic Trainers,,,64180.0,60740.0
+"Cincinnati, OH-KY-IN",29-9092,Genetic Counselors,47.44,50.38,98660.0,104790.0
+"Cincinnati, OH-KY-IN",29-9093,Surgical Assistants,39.91,42.85,83020.0,89120.0
+"Cincinnati, OH-KY-IN",29-9099,"Healthcare Practitioners and Technical Workers, All Other",38.46,31.11,79990.0,64710.0
+"Cincinnati, OH-KY-IN",31-0000,Healthcare Support Occupations,19.29,18.09,40110.0,37630.0
+"Cincinnati, OH-KY-IN",31-1120,Home Health and Personal Care Aides,15.99,15.38,33260.0,31990.0
+"Cincinnati, OH-KY-IN",31-1131,Nursing Assistants,19.66,18.82,40900.0,39150.0
+"Cincinnati, OH-KY-IN",31-1132,Orderlies,17.45,17.17,36300.0,35710.0
+"Cincinnati, OH-KY-IN",31-2011,Occupational Therapy Assistants,32.39,30.8,67380.0,64060.0
+"Cincinnati, OH-KY-IN",31-2021,Physical Therapist Assistants,32.25,31.23,67080.0,64950.0
+"Cincinnati, OH-KY-IN",31-2022,Physical Therapist Aides,16.21,15.17,33710.0,31550.0
+"Cincinnati, OH-KY-IN",31-9011,Massage Therapists,26.12,25.0,54330.0,52000.0
+"Cincinnati, OH-KY-IN",31-9091,Dental Assistants,26.86,23.52,55880.0,48910.0
+"Cincinnati, OH-KY-IN",31-9092,Medical Assistants,20.44,20.9,42520.0,43480.0
+"Cincinnati, OH-KY-IN",31-9093,Medical Equipment Preparers,22.0,22.14,45770.0,46050.0
+"Cincinnati, OH-KY-IN",31-9094,Medical Transcriptionists,21.51,22.39,44740.0,46570.0
+"Cincinnati, OH-KY-IN",31-9095,Pharmacy Aides,17.4,17.41,36190.0,36200.0
+"Cincinnati, OH-KY-IN",31-9096,Veterinary Assistants and Laboratory Animal Caretakers,17.45,16.83,36290.0,35010.0
+"Cincinnati, OH-KY-IN",31-9097,Phlebotomists,20.39,19.61,42420.0,40780.0
+"Cincinnati, OH-KY-IN",31-9099,"Healthcare Support Workers, All Other",21.13,19.2,43940.0,39940.0
+"Cincinnati, OH-KY-IN",33-0000,Protective Service Occupations,27.18,23.3,56530.0,48470.0
+"Cincinnati, OH-KY-IN",33-1011,First-Line Supervisors of Correctional Officers,34.89,34.73,72560.0,72240.0
+"Cincinnati, OH-KY-IN",33-1012,First-Line Supervisors of Police and Detectives,48.68,48.55,101240.0,100990.0
+"Cincinnati, OH-KY-IN",33-1021,First-Line Supervisors of Firefighting and Prevention Workers,41.28,40.49,85870.0,84220.0
+"Cincinnati, OH-KY-IN",33-1091,First-Line Supervisors of Security Workers,28.64,27.68,59570.0,57570.0
+"Cincinnati, OH-KY-IN",33-1099,"First-Line Supervisors of Protective Service Workers, All Other",33.01,34.32,68660.0,71390.0
+"Cincinnati, OH-KY-IN",33-2011,Firefighters,27.02,26.03,56190.0,54130.0
+"Cincinnati, OH-KY-IN",33-2021,Fire Inspectors and Investigators,40.35,25.73,83930.0,53520.0
+"Cincinnati, OH-KY-IN",33-3011,Bailiffs,28.52,29.18,59320.0,60700.0
+"Cincinnati, OH-KY-IN",33-3012,Correctional Officers and Jailers,26.57,25.45,55260.0,52940.0
+"Cincinnati, OH-KY-IN",33-3021,Detectives and Criminal Investigators,45.72,39.14,95090.0,81410.0
+"Cincinnati, OH-KY-IN",33-3051,Police and Sheriff's Patrol Officers,38.17,38.66,79390.0,80410.0
+"Cincinnati, OH-KY-IN",33-9011,Animal Control Workers,22.94,21.34,47700.0,44380.0
+"Cincinnati, OH-KY-IN",33-9021,Private Detectives and Investigators,28.55,27.24,59390.0,56660.0
+"Cincinnati, OH-KY-IN",33-9031,Gambling Surveillance Officers and Gambling Investigators,28.49,22.31,59260.0,46410.0
+"Cincinnati, OH-KY-IN",33-9032,Security Guards,19.14,17.61,39810.0,36630.0
+"Cincinnati, OH-KY-IN",33-9091,Crossing Guards and Flaggers,16.6,16.57,34530.0,34460.0
+"Cincinnati, OH-KY-IN",33-9092,"Lifeguards, Ski Patrol, and Other Recreational Protective Service Workers",14.63,14.17,30430.0,29480.0
+"Cincinnati, OH-KY-IN",33-9093,Transportation Security Screeners,27.83,24.55,57890.0,51060.0
+"Cincinnati, OH-KY-IN",33-9094,School Bus Monitors,21.74,16.8,45210.0,34940.0
+"Cincinnati, OH-KY-IN",33-9099,"Protective Service Workers, All Other",23.65,19.67,49180.0,40920.0
+"Cincinnati, OH-KY-IN",35-0000,Food Preparation and Serving Related Occupations,16.31,14.58,33930.0,30320.0
+"Cincinnati, OH-KY-IN",35-1011,Chefs and Head Cooks,28.25,26.76,58760.0,55660.0
+"Cincinnati, OH-KY-IN",35-1012,First-Line Supervisors of Food Preparation and Serving Workers,20.43,17.92,42480.0,37270.0
+"Cincinnati, OH-KY-IN",35-2011,"Cooks, Fast Food",14.11,13.86,29360.0,28830.0
+"Cincinnati, OH-KY-IN",35-2012,"Cooks, Institution and Cafeteria",17.27,17.4,35930.0,36190.0
+"Cincinnati, OH-KY-IN",35-2014,"Cooks, Restaurant",15.92,16.77,33110.0,34870.0
+"Cincinnati, OH-KY-IN",35-2015,"Cooks, Short Order",16.05,15.85,33380.0,32970.0
+"Cincinnati, OH-KY-IN",35-2021,Food Preparation Workers,15.39,15.05,32020.0,31300.0
+"Cincinnati, OH-KY-IN",35-3011,Bartenders,18.69,14.64,38880.0,30460.0
+"Cincinnati, OH-KY-IN",35-3023,Fast Food and Counter Workers,14.06,13.84,29250.0,28790.0
+"Cincinnati, OH-KY-IN",35-3031,Waiters and Waitresses,18.39,17.45,38260.0,36290.0
+"Cincinnati, OH-KY-IN",35-3041,"Food Servers, Nonrestaurant",15.08,14.26,31360.0,29650.0
+"Cincinnati, OH-KY-IN",35-9011,Dining Room and Cafeteria Attendants and Bartender Helpers,15.14,14.1,31490.0,29330.0
+"Cincinnati, OH-KY-IN",35-9021,Dishwashers,14.5,14.36,30160.0,29860.0
+"Cincinnati, OH-KY-IN",35-9031,"Hosts and Hostesses, Restaurant, Lounge, and Coffee Shop",14.15,13.88,29430.0,28870.0
+"Cincinnati, OH-KY-IN",35-9099,"Food Preparation and Serving Related Workers, All Other",14.59,13.06,30340.0,27160.0
+"Cincinnati, OH-KY-IN",37-0000,Building and Grounds Cleaning and Maintenance Occupations,17.98,17.31,37400.0,36000.0
+"Cincinnati, OH-KY-IN",37-1011,First-Line Supervisors of Housekeeping and Janitorial Workers,21.72,20.89,45170.0,43450.0
+"Cincinnati, OH-KY-IN",37-1012,"First-Line Supervisors of Landscaping, Lawn Service, and Groundskeeping Workers",27.8,27.13,57830.0,56420.0
+"Cincinnati, OH-KY-IN",37-2011,"Janitors and Cleaners, Except Maids and Housekeeping Cleaners",17.45,16.89,36290.0,35120.0
+"Cincinnati, OH-KY-IN",37-2012,Maids and Housekeeping Cleaners,15.43,14.82,32080.0,30820.0
+"Cincinnati, OH-KY-IN",37-2021,Pest Control Workers,21.87,20.78,45480.0,43210.0
+"Cincinnati, OH-KY-IN",37-3011,Landscaping and Groundskeeping Workers,18.59,18.05,38670.0,37540.0
+"Cincinnati, OH-KY-IN",37-3012,"Pesticide Handlers, Sprayers, and Applicators, Vegetation",22.32,23.44,46430.0,48750.0
+"Cincinnati, OH-KY-IN",37-3013,Tree Trimmers and Pruners,25.27,23.22,52550.0,48290.0
+"Cincinnati, OH-KY-IN",37-3019,"Grounds Maintenance Workers, All Other",28.24,24.32,58740.0,50580.0
+"Cincinnati, OH-KY-IN",39-0000,Personal Care and Service Occupations,17.55,15.0,36500.0,31200.0
+"Cincinnati, OH-KY-IN",39-1013,First-Line Supervisors of Gambling Services Workers,29.81,27.85,62000.0,57930.0
+"Cincinnati, OH-KY-IN",39-1014,"First-Line Supervisors of Entertainment and Recreation Workers, Except Gambling Services",22.89,21.41,47600.0,44530.0
+"Cincinnati, OH-KY-IN",39-1022,First-Line Supervisors of Personal Service Workers,20.79,17.88,43240.0,37180.0
+"Cincinnati, OH-KY-IN",39-2011,Animal Trainers,19.61,15.89,40790.0,33050.0
+"Cincinnati, OH-KY-IN",39-2021,Animal Caretakers,16.37,14.31,34050.0,29760.0
+"Cincinnati, OH-KY-IN",39-3031,"Ushers, Lobby Attendants, and Ticket Takers",15.66,14.29,32580.0,29730.0
+"Cincinnati, OH-KY-IN",39-3091,Amusement and Recreation Attendants,13.86,13.37,28840.0,27800.0
+"Cincinnati, OH-KY-IN",39-3092,Costume Attendants,21.81,21.49,45370.0,44690.0
+"Cincinnati, OH-KY-IN",39-3093,"Locker Room, Coatroom, and Dressing Room Attendants",15.34,14.14,31910.0,29410.0
+"Cincinnati, OH-KY-IN",39-4012,Crematory Operators,20.55,20.48,42750.0,42600.0
+"Cincinnati, OH-KY-IN",39-4021,Funeral Attendants,16.7,16.07,34730.0,33430.0
+"Cincinnati, OH-KY-IN",39-4031,"Morticians, Undertakers, and Funeral Arrangers",27.71,24.04,57640.0,50010.0
+"Cincinnati, OH-KY-IN",39-5012,"Hairdressers, Hairstylists, and Cosmetologists",20.06,15.59,41730.0,32430.0
+"Cincinnati, OH-KY-IN",39-5092,Manicurists and Pedicurists,22.37,17.02,46520.0,35400.0
+"Cincinnati, OH-KY-IN",39-5094,Skincare Specialists,20.62,20.03,42900.0,41660.0
+"Cincinnati, OH-KY-IN",39-6012,Concierges,17.67,16.28,36750.0,33860.0
+"Cincinnati, OH-KY-IN",39-7010,Tour and Travel Guides,15.78,15.06,32820.0,31330.0
+"Cincinnati, OH-KY-IN",39-9011,Childcare Workers,14.58,13.91,30330.0,28940.0
+"Cincinnati, OH-KY-IN",39-9031,Exercise Trainers and Group Fitness Instructors,18.75,16.57,39000.0,34470.0
+"Cincinnati, OH-KY-IN",39-9032,Recreation Workers,15.36,14.32,31940.0,29780.0
+"Cincinnati, OH-KY-IN",39-9041,Residential Advisors,18.59,17.61,38670.0,36640.0
+"Cincinnati, OH-KY-IN",39-9099,"Personal Care and Service Workers, All Other",19.44,17.6,40440.0,36610.0
+"Cincinnati, OH-KY-IN",41-0000,Sales and Related Occupations,25.36,17.58,52750.0,36570.0
+"Cincinnati, OH-KY-IN",41-1011,First-Line Supervisors of Retail Sales Workers,24.05,21.93,50010.0,45600.0
+"Cincinnati, OH-KY-IN",41-1012,First-Line Supervisors of Non-Retail Sales Workers,44.71,39.45,93000.0,82050.0
+"Cincinnati, OH-KY-IN",41-2011,Cashiers,14.23,13.77,29590.0,28650.0
+"Cincinnati, OH-KY-IN",41-2012,Gambling Change Persons and Booth Cashiers,17.68,17.53,36770.0,36460.0
+"Cincinnati, OH-KY-IN",41-2021,Counter and Rental Clerks,20.98,18.24,43640.0,37930.0
+"Cincinnati, OH-KY-IN",41-2022,Parts Salespersons,19.39,17.87,40340.0,37170.0
+"Cincinnati, OH-KY-IN",41-2031,Retail Salespersons,17.19,14.76,35760.0,30690.0
+"Cincinnati, OH-KY-IN",41-3011,Advertising Sales Agents,30.55,28.63,63550.0,59560.0
+"Cincinnati, OH-KY-IN",41-3021,Insurance Sales Agents,46.25,29.93,96200.0,62240.0
+"Cincinnati, OH-KY-IN",41-3031,"Securities, Commodities, and Financial Services Sales Agents",43.27,33.47,90000.0,69630.0
+"Cincinnati, OH-KY-IN",41-3041,Travel Agents,25.23,20.63,52480.0,42900.0
+"Cincinnati, OH-KY-IN",41-3091,"Sales Representatives of Services, Except Advertising, Insurance, Financial Services, and Travel",34.52,28.16,71790.0,58570.0
+"Cincinnati, OH-KY-IN",41-4011,"Sales Representatives, Wholesale and Manufacturing, Technical and Scientific Products",57.27,47.56,119130.0,98920.0
+"Cincinnati, OH-KY-IN",41-4012,"Sales Representatives, Wholesale and Manufacturing, Except Technical and Scientific Products",40.96,36.53,85200.0,75980.0
+"Cincinnati, OH-KY-IN",41-9011,Demonstrators and Product Promoters,19.29,16.97,40120.0,35290.0
+"Cincinnati, OH-KY-IN",41-9021,Real Estate Brokers,34.41,28.07,71580.0,58390.0
+"Cincinnati, OH-KY-IN",41-9022,Real Estate Sales Agents,24.4,20.75,50760.0,43150.0
+"Cincinnati, OH-KY-IN",41-9031,Sales Engineers,53.08,47.57,110400.0,98940.0
+"Cincinnati, OH-KY-IN",41-9041,Telemarketers,16.5,14.76,34320.0,30690.0
+"Cincinnati, OH-KY-IN",41-9091,"Door-to-Door Sales Workers, News and Street Vendors, and Related Workers",32.49,40.7,67580.0,84650.0
+"Cincinnati, OH-KY-IN",41-9099,"Sales and Related Workers, All Other",24.86,23.7,51720.0,49290.0
+"Cincinnati, OH-KY-IN",43-0000,Office and Administrative Support Occupations,23.42,22.03,48720.0,45820.0
+"Cincinnati, OH-KY-IN",43-1011,First-Line Supervisors of Office and Administrative Support Workers,32.81,30.52,68240.0,63490.0
+"Cincinnati, OH-KY-IN",43-2011,"Switchboard Operators, Including Answering Service",18.84,17.61,39190.0,36630.0
+"Cincinnati, OH-KY-IN",43-2021,Telephone Operators,18.55,17.81,38580.0,37040.0
+"Cincinnati, OH-KY-IN",43-3011,Bill and Account Collectors,23.45,22.12,48780.0,46000.0
+"Cincinnati, OH-KY-IN",43-3021,Billing and Posting Clerks,22.19,21.74,46160.0,45220.0
+"Cincinnati, OH-KY-IN",43-3031,"Bookkeeping, Accounting, and Auditing Clerks",24.76,23.36,51490.0,48600.0
+"Cincinnati, OH-KY-IN",43-3041,Gambling Cage Workers,,,,
+"Cincinnati, OH-KY-IN",43-3051,Payroll and Timekeeping Clerks,26.76,26.34,55670.0,54790.0
+"Cincinnati, OH-KY-IN",43-3061,Procurement Clerks,23.75,22.87,49400.0,47570.0
+"Cincinnati, OH-KY-IN",43-3071,Tellers,21.34,21.55,44400.0,44830.0
+"Cincinnati, OH-KY-IN",43-3099,"Financial Clerks, All Other",22.73,22.3,47280.0,46390.0
+"Cincinnati, OH-KY-IN",43-4011,Brokerage Clerks,31.14,29.97,64770.0,62330.0
+"Cincinnati, OH-KY-IN",43-4031,"Court, Municipal, and License Clerks",23.63,22.69,49160.0,47180.0
+"Cincinnati, OH-KY-IN",43-4041,"Credit Authorizers, Checkers, and Clerks",25.18,24.3,52380.0,50540.0
+"Cincinnati, OH-KY-IN",43-4051,Customer Service Representatives,21.2,19.57,44100.0,40700.0
+"Cincinnati, OH-KY-IN",43-4061,"Eligibility Interviewers, Government Programs",24.63,22.19,51230.0,46160.0
+"Cincinnati, OH-KY-IN",43-4071,File Clerks,20.96,20.75,43600.0,43160.0
+"Cincinnati, OH-KY-IN",43-4081,"Hotel, Motel, and Resort Desk Clerks",15.01,14.65,31220.0,30460.0
+"Cincinnati, OH-KY-IN",43-4111,"Interviewers, Except Eligibility and Loan",20.43,20.0,42500.0,41600.0
+"Cincinnati, OH-KY-IN",43-4121,"Library Assistants, Clerical",16.56,17.26,34440.0,35890.0
+"Cincinnati, OH-KY-IN",43-4131,Loan Interviewers and Clerks,24.55,23.86,51070.0,49620.0
+"Cincinnati, OH-KY-IN",43-4141,New Accounts Clerks,25.22,23.56,52460.0,49000.0
+"Cincinnati, OH-KY-IN",43-4151,Order Clerks,23.1,21.84,48040.0,45430.0
+"Cincinnati, OH-KY-IN",43-4161,"Human Resources Assistants, Except Payroll and Timekeeping",24.42,24.16,50800.0,50250.0
+"Cincinnati, OH-KY-IN",43-4171,Receptionists and Information Clerks,16.76,16.86,34860.0,35070.0
+"Cincinnati, OH-KY-IN",43-4181,Reservation and Transportation Ticket Agents and Travel Clerks,25.04,22.19,52070.0,46160.0
+"Cincinnati, OH-KY-IN",43-4199,"Information and Record Clerks, All Other",23.47,22.04,48810.0,45830.0
+"Cincinnati, OH-KY-IN",43-5011,Cargo and Freight Agents,24.52,22.08,51000.0,45930.0
+"Cincinnati, OH-KY-IN",43-5021,Couriers and Messengers,19.15,19.24,39830.0,40020.0
+"Cincinnati, OH-KY-IN",43-5031,Public Safety Telecommunicators,26.86,28.78,55880.0,59860.0
+"Cincinnati, OH-KY-IN",43-5032,"Dispatchers, Except Police, Fire, and Ambulance",25.36,23.49,52740.0,48870.0
+"Cincinnati, OH-KY-IN",43-5041,"Meter Readers, Utilities",27.99,25.53,58220.0,53090.0
+"Cincinnati, OH-KY-IN",43-5051,Postal Service Clerks,29.05,29.13,60420.0,60590.0
+"Cincinnati, OH-KY-IN",43-5052,Postal Service Mail Carriers,29.19,28.07,60710.0,58390.0
+"Cincinnati, OH-KY-IN",43-5053,"Postal Service Mail Sorters, Processors, and Processing Machine Operators",27.35,26.64,56890.0,55410.0
+"Cincinnati, OH-KY-IN",43-5061,"Production, Planning, and Expediting Clerks",28.29,27.86,58840.0,57950.0
+"Cincinnati, OH-KY-IN",43-5071,"Shipping, Receiving, and Inventory Clerks",21.16,19.99,44000.0,41580.0
+"Cincinnati, OH-KY-IN",43-5111,"Weighers, Measurers, Checkers, and Samplers, Recordkeeping",22.85,22.13,47520.0,46020.0
+"Cincinnati, OH-KY-IN",43-6011,Executive Secretaries and Executive Administrative Assistants,33.61,31.8,69900.0,66150.0
+"Cincinnati, OH-KY-IN",43-6012,Legal Secretaries and Administrative Assistants,24.51,20.54,50970.0,42720.0
+"Cincinnati, OH-KY-IN",43-6013,Medical Secretaries and Administrative Assistants,21.11,21.22,43910.0,44130.0
+"Cincinnati, OH-KY-IN",43-6014,"Secretaries and Administrative Assistants, Except Legal, Medical, and Executive",23.98,22.55,49870.0,46900.0
+"Cincinnati, OH-KY-IN",43-9021,Data Entry Keyers,20.45,21.19,42530.0,44080.0
+"Cincinnati, OH-KY-IN",43-9022,Word Processors and Typists,23.91,24.66,49720.0,51290.0
+"Cincinnati, OH-KY-IN",43-9041,Insurance Claims and Policy Processing Clerks,25.66,23.74,53360.0,49390.0
+"Cincinnati, OH-KY-IN",43-9051,"Mail Clerks and Mail Machine Operators, Except Postal Service",19.15,18.48,39840.0,38440.0
+"Cincinnati, OH-KY-IN",43-9061,"Office Clerks, General",21.56,20.89,44840.0,43440.0
+"Cincinnati, OH-KY-IN",43-9071,"Office Machine Operators, Except Computer",20.64,21.03,42930.0,43740.0
+"Cincinnati, OH-KY-IN",43-9081,Proofreaders and Copy Markers,22.64,21.97,47090.0,45690.0
+"Cincinnati, OH-KY-IN",43-9199,"Office and Administrative Support Workers, All Other",24.89,23.16,51770.0,48170.0
+"Cincinnati, OH-KY-IN",45-0000,"Farming, Fishing, and Forestry Occupations",19.9,18.11,41390.0,37670.0
+"Cincinnati, OH-KY-IN",45-2092,"Farmworkers and Laborers, Crop, Nursery, and Greenhouse",17.96,17.38,37350.0,36160.0
+"Cincinnati, OH-KY-IN",45-2093,"Farmworkers, Farm, Ranch, and Aquacultural Animals",17.83,16.28,37090.0,33850.0
+"Cincinnati, OH-KY-IN",47-0000,Construction and Extraction Occupations,30.21,29.28,62850.0,60900.0
+"Cincinnati, OH-KY-IN",47-1011,First-Line Supervisors of Construction Trades and Extraction Workers,38.3,37.62,79660.0,78260.0
+"Cincinnati, OH-KY-IN",47-2021,Brickmasons and Blockmasons,32.54,30.58,67680.0,63610.0
+"Cincinnati, OH-KY-IN",47-2022,Stonemasons,24.25,23.46,50440.0,48790.0
+"Cincinnati, OH-KY-IN",47-2031,Carpenters,27.72,27.72,57660.0,57660.0
+"Cincinnati, OH-KY-IN",47-2041,Carpet Installers,26.32,25.35,54750.0,52730.0
+"Cincinnati, OH-KY-IN",47-2042,"Floor Layers, Except Carpet, Wood, and Hard Tiles",27.08,27.47,56330.0,57130.0
+"Cincinnati, OH-KY-IN",47-2044,Tile and Stone Setters,24.78,22.89,51550.0,47600.0
+"Cincinnati, OH-KY-IN",47-2051,Cement Masons and Concrete Finishers,29.91,30.12,62220.0,62650.0
+"Cincinnati, OH-KY-IN",47-2061,Construction Laborers,26.28,23.7,54660.0,49300.0
+"Cincinnati, OH-KY-IN",47-2071,"Paving, Surfacing, and Tamping Equipment Operators",30.94,30.49,64350.0,63410.0
+"Cincinnati, OH-KY-IN",47-2073,Operating Engineers and Other Construction Equipment Operators,33.65,31.32,69990.0,65140.0
+"Cincinnati, OH-KY-IN",47-2081,Drywall and Ceiling Tile Installers,27.13,26.82,56430.0,55790.0
+"Cincinnati, OH-KY-IN",47-2111,Electricians,30.46,29.84,63350.0,62060.0
+"Cincinnati, OH-KY-IN",47-2121,Glaziers,28.12,29.2,58500.0,60740.0
+"Cincinnati, OH-KY-IN",47-2131,"Insulation Workers, Floor, Ceiling, and Wall",28.64,27.23,59560.0,56640.0
+"Cincinnati, OH-KY-IN",47-2132,"Insulation Workers, Mechanical",33.08,35.62,68800.0,74080.0
+"Cincinnati, OH-KY-IN",47-2141,"Painters, Construction and Maintenance",26.76,26.24,55660.0,54580.0
+"Cincinnati, OH-KY-IN",47-2151,Pipelayers,30.17,28.17,62750.0,58590.0
+"Cincinnati, OH-KY-IN",47-2152,"Plumbers, Pipefitters, and Steamfitters",32.13,30.0,66830.0,62400.0
+"Cincinnati, OH-KY-IN",47-2161,Plasterers and Stucco Masons,27.09,24.64,56360.0,51250.0
+"Cincinnati, OH-KY-IN",47-2181,Roofers,27.47,26.52,57140.0,55170.0
+"Cincinnati, OH-KY-IN",47-2211,Sheet Metal Workers,29.98,29.42,62350.0,61180.0
+"Cincinnati, OH-KY-IN",47-2221,Structural Iron and Steel Workers,33.81,34.84,70330.0,72470.0
+"Cincinnati, OH-KY-IN",47-3011,"Helpers--Brickmasons, Blockmasons, Stonemasons, and Tile and Marble Setters",24.51,23.94,50980.0,49800.0
+"Cincinnati, OH-KY-IN",47-3012,Helpers--Carpenters,21.33,21.31,44370.0,44330.0
+"Cincinnati, OH-KY-IN",47-3013,Helpers--Electricians,20.85,20.59,43370.0,42830.0
+"Cincinnati, OH-KY-IN",47-3015,"Helpers--Pipelayers, Plumbers, Pipefitters, and Steamfitters",21.09,18.85,43870.0,39220.0
+"Cincinnati, OH-KY-IN",47-3019,"Helpers, Construction Trades, All Other",23.69,26.27,49280.0,54650.0
+"Cincinnati, OH-KY-IN",47-4011,Construction and Building Inspectors,35.08,34.63,72970.0,72030.0
+"Cincinnati, OH-KY-IN",47-4021,Elevator and Escalator Installers and Repairers,40.25,37.36,83710.0,77720.0
+"Cincinnati, OH-KY-IN",47-4041,Hazardous Materials Removal Workers,25.78,23.99,53610.0,49900.0
+"Cincinnati, OH-KY-IN",47-4051,Highway Maintenance Workers,24.22,22.93,50380.0,47700.0
+"Cincinnati, OH-KY-IN",47-4071,Septic Tank Servicers and Sewer Pipe Cleaners,29.53,30.13,61420.0,62670.0
+"Cincinnati, OH-KY-IN",47-4090,Miscellaneous Construction and Related Workers,30.3,23.52,63010.0,48930.0
+"Cincinnati, OH-KY-IN",47-5022,"Excavating and Loading Machine and Dragline Operators, Surface Mining",30.51,28.04,63450.0,58320.0
+"Cincinnati, OH-KY-IN",47-5023,"Earth Drillers, Except Oil and Gas",30.57,29.62,63590.0,61610.0
+"Cincinnati, OH-KY-IN",49-0000,"Installation, Maintenance, and Repair Occupations",29.63,28.87,61630.0,60040.0
+"Cincinnati, OH-KY-IN",49-1011,"First-Line Supervisors of Mechanics, Installers, and Repairers",39.11,37.89,81350.0,78820.0
+"Cincinnati, OH-KY-IN",49-2011,"Computer, Automated Teller, and Office Machine Repairers",23.62,23.15,49130.0,48150.0
+"Cincinnati, OH-KY-IN",49-2022,"Telecommunications Equipment Installers and Repairers, Except Line Installers",28.8,27.15,59890.0,56470.0
+"Cincinnati, OH-KY-IN",49-2092,"Electric Motor, Power Tool, and Related Repairers",23.65,23.9,49190.0,49710.0
+"Cincinnati, OH-KY-IN",49-2094,"Electrical and Electronics Repairers, Commercial and Industrial Equipment",32.8,31.38,68230.0,65280.0
+"Cincinnati, OH-KY-IN",49-2095,"Electrical and Electronics Repairers, Powerhouse, Substation, and Relay",44.5,50.29,92560.0,104610.0
+"Cincinnati, OH-KY-IN",49-2096,"Electronic Equipment Installers and Repairers, Motor Vehicles",26.31,27.86,54730.0,57950.0
+"Cincinnati, OH-KY-IN",49-2097,Audiovisual Equipment Installers and Repairers,26.34,22.79,54790.0,47410.0
+"Cincinnati, OH-KY-IN",49-2098,Security and Fire Alarm Systems Installers,28.78,29.08,59870.0,60490.0
+"Cincinnati, OH-KY-IN",49-3011,Aircraft Mechanics and Service Technicians,37.98,37.86,78990.0,78740.0
+"Cincinnati, OH-KY-IN",49-3021,Automotive Body and Related Repairers,27.77,23.58,57760.0,49040.0
+"Cincinnati, OH-KY-IN",49-3022,Automotive Glass Installers and Repairers,26.22,24.75,54540.0,51480.0
+"Cincinnati, OH-KY-IN",49-3023,Automotive Service Technicians and Mechanics,24.64,22.55,51240.0,46900.0
+"Cincinnati, OH-KY-IN",49-3031,Bus and Truck Mechanics and Diesel Engine Specialists,29.79,29.66,61950.0,61680.0
+"Cincinnati, OH-KY-IN",49-3041,Farm Equipment Mechanics and Service Technicians,26.38,24.97,54870.0,51940.0
+"Cincinnati, OH-KY-IN",49-3042,"Mobile Heavy Equipment Mechanics, Except Engines",31.78,30.75,66100.0,63960.0
+"Cincinnati, OH-KY-IN",49-3051,Motorboat Mechanics and Service Technicians,25.46,24.66,52950.0,51290.0
+"Cincinnati, OH-KY-IN",49-3052,Motorcycle Mechanics,22.82,22.4,47470.0,46600.0
+"Cincinnati, OH-KY-IN",49-3053,Outdoor Power Equipment and Other Small Engine Mechanics,23.89,22.76,49690.0,47340.0
+"Cincinnati, OH-KY-IN",49-3093,Tire Repairers and Changers,19.56,18.72,40690.0,38940.0
+"Cincinnati, OH-KY-IN",49-9011,Mechanical Door Repairers,25.4,23.6,52820.0,49090.0
+"Cincinnati, OH-KY-IN",49-9012,"Control and Valve Installers and Repairers, Except Mechanical Door",31.31,28.83,65130.0,59970.0
+"Cincinnati, OH-KY-IN",49-9021,"Heating, Air Conditioning, and Refrigeration Mechanics and Installers",30.23,29.3,62870.0,60940.0
+"Cincinnati, OH-KY-IN",49-9031,Home Appliance Repairers,28.05,24.7,58340.0,51370.0
+"Cincinnati, OH-KY-IN",49-9041,Industrial Machinery Mechanics,32.76,31.83,68130.0,66210.0
+"Cincinnati, OH-KY-IN",49-9043,"Maintenance Workers, Machinery",31.24,30.98,64980.0,64450.0
+"Cincinnati, OH-KY-IN",49-9044,Millwrights,35.63,36.88,74110.0,76700.0
+"Cincinnati, OH-KY-IN",49-9051,Electrical Power-Line Installers and Repairers,41.76,40.52,86870.0,84290.0
+"Cincinnati, OH-KY-IN",49-9052,Telecommunications Line Installers and Repairers,29.49,28.3,61340.0,58860.0
+"Cincinnati, OH-KY-IN",49-9062,Medical Equipment Repairers,30.19,29.28,62800.0,60900.0
+"Cincinnati, OH-KY-IN",49-9069,"Precision Instrument and Equipment Repairers, All Other",36.92,34.77,76790.0,72320.0
+"Cincinnati, OH-KY-IN",49-9071,"Maintenance and Repair Workers, General",26.32,25.15,54740.0,52310.0
+"Cincinnati, OH-KY-IN",49-9091,"Coin, Vending, and Amusement Machine Servicers and Repairers",23.41,20.77,48700.0,43200.0
+"Cincinnati, OH-KY-IN",49-9094,Locksmiths and Safe Repairers,23.84,21.69,49580.0,45120.0
+"Cincinnati, OH-KY-IN",49-9096,Riggers,32.01,27.26,66570.0,56710.0
+"Cincinnati, OH-KY-IN",49-9098,"Helpers--Installation, Maintenance, and Repair Workers",19.54,18.54,40640.0,38570.0
+"Cincinnati, OH-KY-IN",49-9099,"Installation, Maintenance, and Repair Workers, All Other",25.33,23.64,52680.0,49170.0
+"Cincinnati, OH-KY-IN",51-0000,Production Occupations,23.83,22.32,49560.0,46420.0
+"Cincinnati, OH-KY-IN",51-1011,First-Line Supervisors of Production and Operating Workers,35.49,34.88,73810.0,72540.0
+"Cincinnati, OH-KY-IN",51-2011,"Aircraft Structure, Surfaces, Rigging, and Systems Assemblers",21.32,18.04,44350.0,37530.0
+"Cincinnati, OH-KY-IN",51-2021,"Coil Winders, Tapers, and Finishers",22.29,22.68,46350.0,47180.0
+"Cincinnati, OH-KY-IN",51-2028,"Electrical, Electronic, and Electromechanical Assemblers, Except Coil Winders, Tapers, and Finishers",22.56,22.15,46920.0,46070.0
+"Cincinnati, OH-KY-IN",51-2031,Engine and Other Machine Assemblers,,,,
+"Cincinnati, OH-KY-IN",51-2041,Structural Metal Fabricators and Fitters,24.8,24.06,51590.0,50040.0
+"Cincinnati, OH-KY-IN",51-2051,Fiberglass Laminators and Fabricators,21.73,22.72,45190.0,47260.0
+"Cincinnati, OH-KY-IN",51-2090,Miscellaneous Assemblers and Fabricators,20.86,19.59,43390.0,40750.0
+"Cincinnati, OH-KY-IN",51-3011,Bakers,16.4,15.47,34120.0,32180.0
+"Cincinnati, OH-KY-IN",51-3021,Butchers and Meat Cutters,18.86,18.05,39240.0,37550.0
+"Cincinnati, OH-KY-IN",51-3022,"Meat, Poultry, and Fish Cutters and Trimmers",19.02,18.98,39570.0,39480.0
+"Cincinnati, OH-KY-IN",51-3023,Slaughterers and Meat Packers,17.76,16.8,36950.0,34940.0
+"Cincinnati, OH-KY-IN",51-3092,Food Batchmakers,21.67,20.29,45070.0,42210.0
+"Cincinnati, OH-KY-IN",51-3093,Food Cooking Machine Operators and Tenders,21.07,19.56,43830.0,40680.0
+"Cincinnati, OH-KY-IN",51-3099,"Food Processing Workers, All Other",18.92,18.98,39350.0,39480.0
+"Cincinnati, OH-KY-IN",51-4021,"Extruding and Drawing Machine Setters, Operators, and Tenders, Metal and Plastic",22.56,22.17,46930.0,46120.0
+"Cincinnati, OH-KY-IN",51-4023,"Rolling Machine Setters, Operators, and Tenders, Metal and Plastic",24.46,24.1,50870.0,50130.0
+"Cincinnati, OH-KY-IN",51-4031,"Cutting, Punching, and Press Machine Setters, Operators, and Tenders, Metal and Plastic",22.42,22.0,46630.0,45750.0
+"Cincinnati, OH-KY-IN",51-4032,"Drilling and Boring Machine Tool Setters, Operators, and Tenders, Metal and Plastic",23.94,24.36,49790.0,50660.0
+"Cincinnati, OH-KY-IN",51-4033,"Grinding, Lapping, Polishing, and Buffing Machine Tool Setters, Operators, and Tenders, Metal and Plastic",21.37,19.59,44440.0,40750.0
+"Cincinnati, OH-KY-IN",51-4034,"Lathe and Turning Machine Tool Setters, Operators, and Tenders, Metal and Plastic",23.96,22.52,49830.0,46830.0
+"Cincinnati, OH-KY-IN",51-4035,"Milling and Planing Machine Setters, Operators, and Tenders, Metal and Plastic",24.72,23.48,51420.0,48840.0
+"Cincinnati, OH-KY-IN",51-4041,Machinists,27.43,27.39,57050.0,56960.0
+"Cincinnati, OH-KY-IN",51-4051,Metal-Refining Furnace Operators and Tenders,26.13,24.27,54350.0,50480.0
+"Cincinnati, OH-KY-IN",51-4071,Foundry Mold and Coremakers,22.21,21.53,46190.0,44780.0
+"Cincinnati, OH-KY-IN",51-4072,"Molding, Coremaking, and Casting Machine Setters, Operators, and Tenders, Metal and Plastic",22.0,21.57,45770.0,44870.0
+"Cincinnati, OH-KY-IN",51-4081,"Multiple Machine Tool Setters, Operators, and Tenders, Metal and Plastic",23.72,22.93,49340.0,47690.0
+"Cincinnati, OH-KY-IN",51-4111,Tool and Die Makers,31.75,30.54,66040.0,63530.0
+"Cincinnati, OH-KY-IN",51-4121,"Welders, Cutters, Solderers, and Brazers",26.28,24.53,54660.0,51020.0
+"Cincinnati, OH-KY-IN",51-4122,"Welding, Soldering, and Brazing Machine Setters, Operators, and Tenders",23.19,22.82,48240.0,47460.0
+"Cincinnati, OH-KY-IN",51-4191,"Heat Treating Equipment Setters, Operators, and Tenders, Metal and Plastic",25.54,24.68,53120.0,51330.0
+"Cincinnati, OH-KY-IN",51-4193,"Plating Machine Setters, Operators, and Tenders, Metal and Plastic",22.27,21.24,46310.0,44190.0
+"Cincinnati, OH-KY-IN",51-5111,Prepress Technicians and Workers,22.82,22.19,47470.0,46160.0
+"Cincinnati, OH-KY-IN",51-5112,Printing Press Operators,22.66,22.59,47140.0,46990.0
+"Cincinnati, OH-KY-IN",51-5113,Print Binding and Finishing Workers,19.83,18.11,41250.0,37670.0
+"Cincinnati, OH-KY-IN",51-6011,Laundry and Dry-Cleaning Workers,15.31,14.76,31850.0,30700.0
+"Cincinnati, OH-KY-IN",51-6021,"Pressers, Textile, Garment, and Related Materials",15.19,14.57,31600.0,30300.0
+"Cincinnati, OH-KY-IN",51-6031,Sewing Machine Operators,16.84,16.15,35020.0,33590.0
+"Cincinnati, OH-KY-IN",51-6052,"Tailors, Dressmakers, and Custom Sewers",20.02,20.01,41640.0,41630.0
+"Cincinnati, OH-KY-IN",51-6064,"Textile Winding, Twisting, and Drawing Out Machine Setters, Operators, and Tenders",22.71,25.31,47240.0,52650.0
+"Cincinnati, OH-KY-IN",51-6093,Upholsterers,20.57,21.02,42780.0,43720.0
+"Cincinnati, OH-KY-IN",51-6099,"Textile, Apparel, and Furnishings Workers, All Other",20.38,20.07,42400.0,41750.0
+"Cincinnati, OH-KY-IN",51-7011,Cabinetmakers and Bench Carpenters,23.39,23.52,48650.0,48920.0
+"Cincinnati, OH-KY-IN",51-7021,Furniture Finishers,21.08,22.06,43850.0,45870.0
+"Cincinnati, OH-KY-IN",51-7041,"Sawing Machine Setters, Operators, and Tenders, Wood",22.59,22.81,46990.0,47440.0
+"Cincinnati, OH-KY-IN",51-7042,"Woodworking Machine Setters, Operators, and Tenders, Except Sawing",20.45,19.34,42530.0,40220.0
+"Cincinnati, OH-KY-IN",51-8012,Power Distributors and Dispatchers,47.11,49.98,97980.0,103960.0
+"Cincinnati, OH-KY-IN",51-8013,Power Plant Operators,43.64,49.49,90770.0,102950.0
+"Cincinnati, OH-KY-IN",51-8021,Stationary Engineers and Boiler Operators,36.26,37.54,75420.0,78080.0
+"Cincinnati, OH-KY-IN",51-8031,Water and Wastewater Treatment Plant and System Operators,27.78,28.59,57790.0,59470.0
+"Cincinnati, OH-KY-IN",51-8092,Gas Plant Operators,33.73,30.49,70160.0,63430.0
+"Cincinnati, OH-KY-IN",51-8099,"Plant and System Operators, All Other",29.68,29.39,61740.0,61130.0
+"Cincinnati, OH-KY-IN",51-9011,Chemical Equipment Operators and Tenders,29.87,28.32,62140.0,58910.0
+"Cincinnati, OH-KY-IN",51-9012,"Separating, Filtering, Clarifying, Precipitating, and Still Machine Setters, Operators, and Tenders",24.67,23.09,51310.0,48020.0
+"Cincinnati, OH-KY-IN",51-9021,"Crushing, Grinding, and Polishing Machine Setters, Operators, and Tenders",20.21,19.02,42040.0,39570.0
+"Cincinnati, OH-KY-IN",51-9022,"Grinding and Polishing Workers, Hand",21.2,21.6,44090.0,44930.0
+"Cincinnati, OH-KY-IN",51-9023,"Mixing and Blending Machine Setters, Operators, and Tenders",25.35,23.68,52730.0,49260.0
+"Cincinnati, OH-KY-IN",51-9032,"Cutting and Slicing Machine Setters, Operators, and Tenders",22.68,22.3,47170.0,46390.0
+"Cincinnati, OH-KY-IN",51-9041,"Extruding, Forming, Pressing, and Compacting Machine Setters, Operators, and Tenders",21.88,21.4,45500.0,44510.0
+"Cincinnati, OH-KY-IN",51-9051,"Furnace, Kiln, Oven, Drier, and Kettle Operators and Tenders",21.78,18.48,45300.0,38440.0
+"Cincinnati, OH-KY-IN",51-9061,"Inspectors, Testers, Sorters, Samplers, and Weighers",23.53,22.4,48940.0,46590.0
+"Cincinnati, OH-KY-IN",51-9071,Jewelers and Precious Stone and Metal Workers,23.0,22.07,47850.0,45900.0
+"Cincinnati, OH-KY-IN",51-9081,Dental Laboratory Technicians,24.87,23.32,51730.0,48500.0
+"Cincinnati, OH-KY-IN",51-9111,Packaging and Filling Machine Operators and Tenders,21.42,20.47,44560.0,42580.0
+"Cincinnati, OH-KY-IN",51-9124,"Coating, Painting, and Spraying Machine Setters, Operators, and Tenders",23.86,22.86,49640.0,47550.0
+"Cincinnati, OH-KY-IN",51-9161,Computer Numerically Controlled Tool Operators,24.71,23.96,51390.0,49840.0
+"Cincinnati, OH-KY-IN",51-9162,Computer Numerically Controlled Tool Programmers,34.84,32.73,72460.0,68080.0
+"Cincinnati, OH-KY-IN",51-9191,Adhesive Bonding Machine Operators and Tenders,22.36,19.52,46500.0,40600.0
+"Cincinnati, OH-KY-IN",51-9192,"Cleaning, Washing, and Metal Pickling Equipment Operators and Tenders",19.44,18.39,40440.0,38240.0
+"Cincinnati, OH-KY-IN",51-9194,Etchers and Engravers,21.71,19.61,45170.0,40780.0
+"Cincinnati, OH-KY-IN",51-9195,"Molders, Shapers, and Casters, Except Metal and Plastic",22.31,22.87,46400.0,47570.0
+"Cincinnati, OH-KY-IN",51-9196,"Paper Goods Machine Setters, Operators, and Tenders",25.29,24.49,52590.0,50930.0
+"Cincinnati, OH-KY-IN",51-9197,Tire Builders,21.34,21.71,44380.0,45150.0
+"Cincinnati, OH-KY-IN",51-9198,Helpers--Production Workers,20.95,20.87,43580.0,43400.0
+"Cincinnati, OH-KY-IN",51-9199,"Production Workers, All Other",20.07,18.84,41740.0,39190.0
+"Cincinnati, OH-KY-IN",53-0000,Transportation and Material Moving Occupations,22.97,20.64,47770.0,42920.0
+"Cincinnati, OH-KY-IN",53-1047,"First-Line Supervisors of Transportation and Material Moving Workers, Except Aircraft Cargo Handling Supervisors",31.45,29.87,65420.0,62140.0
+"Cincinnati, OH-KY-IN",53-2012,Commercial Pilots,,,128740.0,119410.0
+"Cincinnati, OH-KY-IN",53-2021,Air Traffic Controllers,64.68,65.18,134530.0,135570.0
+"Cincinnati, OH-KY-IN",53-3011,"Ambulance Drivers and Attendants, Except Emergency Medical Technicians",16.44,14.81,34190.0,30800.0
+"Cincinnati, OH-KY-IN",53-3031,Driver/Sales Workers,19.26,18.0,40060.0,37450.0
+"Cincinnati, OH-KY-IN",53-3032,Heavy and Tractor-Trailer Truck Drivers,30.56,28.37,63560.0,59010.0
+"Cincinnati, OH-KY-IN",53-3033,Light Truck Drivers,24.16,21.03,50250.0,43750.0
+"Cincinnati, OH-KY-IN",53-3051,"Bus Drivers, School",23.75,22.68,49400.0,47170.0
+"Cincinnati, OH-KY-IN",53-3052,"Bus Drivers, Transit and Intercity",25.74,26.49,53540.0,55100.0
+"Cincinnati, OH-KY-IN",53-3053,Shuttle Drivers and Chauffeurs,17.17,16.06,35720.0,33400.0
+"Cincinnati, OH-KY-IN",53-3099,"Motor Vehicle Operators, All Other",17.3,16.37,35980.0,34050.0
+"Cincinnati, OH-KY-IN",53-6021,Parking Attendants,15.67,15.73,32590.0,32710.0
+"Cincinnati, OH-KY-IN",53-6031,Automotive and Watercraft Service Attendants,16.79,17.13,34920.0,35630.0
+"Cincinnati, OH-KY-IN",53-6032,Aircraft Service Attendants,20.0,18.19,41600.0,37830.0
+"Cincinnati, OH-KY-IN",53-6051,Transportation Inspectors,51.83,59.1,107800.0,122920.0
+"Cincinnati, OH-KY-IN",53-7011,Conveyor Operators and Tenders,23.01,21.99,47860.0,45740.0
+"Cincinnati, OH-KY-IN",53-7021,Crane and Tower Operators,34.07,31.46,70860.0,65430.0
+"Cincinnati, OH-KY-IN",53-7051,Industrial Truck and Tractor Operators,23.27,22.22,48400.0,46220.0
+"Cincinnati, OH-KY-IN",53-7061,Cleaners of Vehicles and Equipment,17.85,17.53,37120.0,36470.0
+"Cincinnati, OH-KY-IN",53-7062,"Laborers and Freight, Stock, and Material Movers, Hand",20.27,19.54,42170.0,40640.0
+"Cincinnati, OH-KY-IN",53-7063,Machine Feeders and Offbearers,20.98,19.0,43640.0,39520.0
+"Cincinnati, OH-KY-IN",53-7064,"Packers and Packagers, Hand",17.73,17.59,36880.0,36580.0
+"Cincinnati, OH-KY-IN",53-7065,Stockers and Order Fillers,18.92,17.79,39360.0,37010.0
+"Cincinnati, OH-KY-IN",53-7081,Refuse and Recyclable Material Collectors,23.77,23.72,49430.0,49340.0
+"Cincinnati, OH-KY-IN",53-7121,"Tank Car, Truck, and Ship Loaders",25.42,24.89,52870.0,51780.0
+"Cincinnati, OH-KY-IN",53-7199,"Material Moving Workers, All Other",22.92,19.8,47670.0,41190.0
