@@ -30,7 +30,7 @@ HERO_BG_PATH = BASE_DIR / "assets" / "hero_bg.png"
 # Color palette
 # https://coolors.co/palette/d3996b-a57662-94837c-274142-001018
 # --------------------------------
-SAND = "#D3996B"
+SAND = "#fcaa67"
 CLAY = "#A57662"
 TAUPE = "#94837C"
 FOREST = "#274142"
@@ -45,6 +45,11 @@ MAP_SCALE = [
 ]
 
 PLOTLY_FONT = "Inter, Segoe UI, Arial, sans-serif"
+
+# Keep every chart inside the TransitIQ palette.
+px.defaults.template = "plotly_white"
+px.defaults.color_discrete_sequence = [FOREST, CLAY, SAND, TAUPE, INK]
+px.defaults.color_continuous_scale = MAP_SCALE
 
 
 # --------------------------------
@@ -233,42 +238,38 @@ st.markdown(
 
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
 
-:root {
-    --font-body: 'Inter', 'Segoe UI', Arial, sans-serif;
-    --font-display: 'Space Grotesk', 'Inter', 'Segoe UI', Arial, sans-serif;
-}
+    :root {
+        --sand: #fcaa67;
+        --clay: #A57662;
+        --taupe: #94837C;
+        --forest: #274142;
+        --ink: #001018;
+        --white: #FFFFFF;
+        --cream: #FFF9F2;
+        --page: #FBFAF7;
+        --line: rgba(148, 131, 124, 0.26);
+        --shadow: 0 14px 34px rgba(0, 16, 24, 0.09);
+        --font-body: 'Inter', 'Segoe UI', Arial, sans-serif;
+        --font-display: 'Space Grotesk', 'Inter', 'Segoe UI', Arial, sans-serif;
+    }
 
-/* Force Streamlit away from Source Sans */
-html, body, .stApp, .stApp * {
-    font-family: var(--font-body) !important;
-}
+    html, body, .stApp, .stApp * {
+        font-family: var(--font-body) !important;
+    }
 
-/* Stronger font for titles, tabs, metric numbers */
-h1, h2, h3,
-.hero h1,
-.section-title,
-.metric-value,
-.metric-label,
-.stTabs [data-baseweb="tab"],
-section[data-testid="stSidebar"] h1,
-section[data-testid="stSidebar"] h2,
-section[data-testid="stSidebar"] h3 {
-    font-family: var(--font-display) !important;
-    letter-spacing: -0.03em;
-}
+    h1, h2, h3,
+    .hero h1,
+    .section-title,
+    .metric-value,
+    .metric-label,
+    .stTabs [data-baseweb="tab"],
+    section[data-testid="stSidebar"] h1,
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] h3 {
+        font-family: var(--font-display) !important;
+        letter-spacing: -0.035em;
+    }
 
-/* Sidebar labels and controls */
-section[data-testid="stSidebar"] label,
-section[data-testid="stSidebar"] p,
-section[data-testid="stSidebar"] span,
-button, input, textarea, select {
-    font-family: var(--font-body) !important;
-}
-
-    /* Sidebar fix:
-       Do NOT hide the whole Streamlit header.
-       The sidebar open/close button lives inside the header.
-       We hide the toolbar/menu decoration but keep the sidebar toggle usable. */
     header[data-testid="stHeader"] {
         visibility: visible !important;
         background: transparent !important;
@@ -283,464 +284,479 @@ button, input, textarea, select {
         position: fixed !important;
     }
 
-    /* Keep the native Streamlit sidebar visible and styled. */
+    .stApp {
+        background: var(--page);
+        color: var(--ink);
+    }
+
+    .block-container {
+        padding-top: 2.5rem;
+        padding-bottom: 2.8rem;
+        max-width: 1500px;
+    }
+
+    /* -------------------------------
+       Sidebar
+    -------------------------------- */
     section[data-testid="stSidebar"] {
         visibility: visible !important;
-        background: #FFFFFF !important;
-        border-right: 1px solid #E5E7EB;
-        box-shadow: 8px 0 24px rgba(15, 23, 42, 0.06);
+        background: linear-gradient(180deg, var(--ink) 0%, var(--forest) 100%) !important;
+        border-right: 1px solid rgba(211, 153, 107, 0.22) !important;
+        box-shadow: 12px 0 36px rgba(0, 16, 24, 0.18);
     }
 
     section[data-testid="stSidebar"] * {
         visibility: visible;
     }
 
-    /* Make the collapsed-sidebar button visible if the browser remembers a collapsed state. */
-    div[data-testid="stSidebarCollapsedControl"] {
-        visibility: visible !important;
-        display: block !important;
-        z-index: 999999 !important;
+    section[data-testid="stSidebar"] > div {
+        background: transparent !important;
+        padding: 2rem 1.35rem 1.5rem 1.35rem;
     }
 
-    .stApp {
-        background: #F8FAFC;
+    section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] {
+        gap: 0.72rem;
     }
 
-
-    .block-container {
-        padding-top: 1.2rem;
-        padding-bottom: 2rem;
-        max-width: 1400px;
+    .sidebar-brand {
+        color: rgba(255, 255, 255, 0.65);
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        margin-bottom: 0.35rem;
     }
 
-    .hero {
-        background: white;
-        padding: 30px 34px;
-        border-radius: 8px;
-        color: white;
-        margin-bottom: 24px;
-        box-shadow: 0 8px 24px rgba(15, 23, 42, 0.18);
+    .sidebar-title {
+        color: var(--white);
+        font-family: var(--font-display);
+        font-size: 1.75rem;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: -0.04em;
+        margin-bottom: 0.45rem;
     }
 
-.hero h1 {
-    font-size: 2.55rem;
-    margin-bottom: 0.35rem;
-    font-weight: 700;
-    font-family: var(--font-display) !important;
-    letter-spacing: -0.045em;
-}
-
-    .hero p {
-        font-size: 1.05rem;
-        color: #DDEAFE;
-        margin-bottom: 0;
-        line-height: 1.55;
+    .sidebar-subtitle {
+        color: rgba(255, 255, 255, 0.70);
+        font-size: 0.86rem;
+        line-height: 1.45;
+        margin-bottom: 1.35rem;
     }
 
+    .sidebar-section-label {
+        color: var(--sand);
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        margin-top: 1.25rem;
+        margin-bottom: 0.45rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    section[data-testid="stSidebar"] label,
+    section[data-testid="stSidebar"] p,
+    section[data-testid="stSidebar"] span,
+    section[data-testid="stSidebar"] div {
+        color: var(--white) !important;
+    }
+
+    section[data-testid="stSidebar"] div[data-testid="stWidgetLabel"] label,
+    section[data-testid="stSidebar"] label p {
+        color: var(--white) !important;
+        font-size: 0.88rem !important;
+        font-weight: 750 !important;
+    }
+
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] {
+        margin-bottom: 0.95rem;
+    }
+
+    section[data-testid="stSidebar"] div[data-testid="stRadio"] label {
+        padding-right: 0.7rem;
+    }
+
+    section[data-testid="stSidebar"] input[type="checkbox"],
+    section[data-testid="stSidebar"] input[type="radio"] {
+        accent-color: var(--sand) !important;
+    }
+
+    section[data-testid="stSidebar"] div[data-baseweb="select"] > div,
+    section[data-testid="stSidebar"] div[data-baseweb="input"] > div {
+        background: rgba(255, 255, 255, 0.10) !important;
+        border: 1px solid rgba(211, 153, 107, 0.32) !important;
+        border-radius: 10px !important;
+        min-height: 46px;
+    }
+
+    section[data-testid="stSidebar"] div[data-baseweb="select"] span,
+    section[data-testid="stSidebar"] div[data-baseweb="select"] div {
+        color: var(--white) !important;
+    }
+
+    section[data-testid="stSidebar"] span[data-baseweb="tag"] {
+        background: var(--cream) !important;
+        border-radius: 8px !important;
+        padding: 0.25rem 0.35rem !important;
+        margin: 0.16rem !important;
+    }
+
+    section[data-testid="stSidebar"] span[data-baseweb="tag"] *,
+    section[data-testid="stSidebar"] span[data-baseweb="tag"] span {
+        color: var(--forest) !important;
+        font-weight: 800 !important;
+    }
+
+    section[data-testid="stSidebar"] input {
+        color: var(--white) !important;
+    }
+
+    section[data-testid="stSidebar"] svg {
+        color: var(--sand) !important;
+        fill: var(--sand) !important;
+    }
+
+    section[data-testid="stSidebar"] hr {
+        border-color: rgba(255, 255, 255, 0.18) !important;
+        margin-top: 1.4rem;
+        margin-bottom: 1.2rem;
+    }
+
+    section[data-testid="stSidebar"] [data-testid="stCaptionContainer"],
+    section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p {
+        color: rgba(255, 255, 255, 0.58) !important;
+        font-size: 0.85rem !important;
+        line-height: 1.5;
+    }
+
+    button[data-testid="stSidebarCollapseButton"],
+    button[data-testid="stSidebarExpandButton"],
+    div[data-testid="stSidebarCollapsedControl"],
+    div[data-testid="collapsedControl"],
+    button[title="Close sidebar"],
+    button[title="Open sidebar"] {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+    }
+
+    /* -------------------------------
+       Hero section with background image
+    -------------------------------- */
+    .hero-stage {
+        position: relative;
+        min-height: 245px;
+        margin-bottom: 1.75rem;
+        padding: 46px 52px;
+        border-radius: 16px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(135deg, var(--ink) 0%, var(--forest) 100%);
+    }
+
+    .hero-image-rect {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background:
+            linear-gradient(
+                90deg,
+                rgba(0, 16, 24, 0.86) 0%,
+                rgba(0, 16, 24, 0.82) 42%,
+                rgba(39, 65, 66, 0.65) 68%,
+                rgba(211, 153, 107, 0.22) 100%
+            ),
+            url("HERO_BG_URL_PLACEHOLDER");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .hero-image-rect::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at 85% 110%, rgba(211, 153, 107, 0.34) 0%, rgba(211, 153, 107, 0.12) 34%, transparent 58%);
+        z-index: 1;
+    }
+
+    .hero-stage .hero {
+        position: relative;
+        z-index: 2;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        box-shadow: none !important;
+        color: var(--white) !important;
+    }
+
+    .hero-stage .hero h1 {
+        color: var(--white) !important;
+        font-size: clamp(2.1rem, 4vw, 3.45rem);
+        line-height: 1.04;
+        font-weight: 700;
+        margin: 0 0 1rem 0;
+        letter-spacing: -0.03em;
+    }
+
+    .hero-stage .hero p {
+        color: rgba(255, 255, 255, 0.86) !important;
+        max-width: 940px;
+        font-size: 1.08rem;
+        line-height: 1.65;
+        margin: 0;
+    }
+
+    .hero-stage .hero b {
+        color: var(--sand) !important;
+        font-weight: 850;
+    }
+
+    /* -------------------------------
+       Tabs
+    -------------------------------- */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 0.35rem;
+        margin-bottom: 0px;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        height: auto;
+        padding: 0.88rem 0.88rem 0.78rem 0.88rem;
+        border-radius: 8px 8px 0 0;
+        color: rgba(0, 16, 24, 0.72);
+        font-size: 0.92rem;
+        font-weight: 700;
+        background: transparent;
+    }
+
+    .stTabs [data-baseweb="tab"] p {
+        color: inherit !important;
+        margin: 0;
+    }
+
+    .stTabs [aria-selected="true"] {
+        color: var(--forest) !important;
+        background: rgba(39, 65, 66, 0.06) !important;
+    }
+
+    /* -------------------------------
+       Overview cards and content blocks
+    -------------------------------- */
     .metric-card {
-        background: #FFFFFF;
-        padding: 22px;
-        border-radius: 8px;
-        border: 1px solid #E5E7EB;
-        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
-        min-height: 135px;
+        background: linear-gradient(180deg, var(--white) 0%, #FFFDF9 100%);
+        padding: 24px 24px 22px 24px;
+        border-radius: 16px;
+        border: 1px solid rgba(148, 131, 124, 0.22);
+        box-shadow: 0 10px 28px rgba(0, 16, 24, 0.06);
+        min-height: 168px;
+        transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+
+    .metric-top {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        margin-bottom: 12px;
+    }
+
+    .metric-icon {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background: rgba(39, 65, 66, 0.10);
+        color: var(--forest);
+        font-size: 1.28rem;
+        font-weight: 800;
     }
 
     .metric-label {
-        font-size: 0.85rem;
-        color: #64748B;
-        margin-bottom: 8px;
-        font-weight: 600;
+        font-size: 0.94rem;
+        color: var(--forest);
+        margin: 0;
+        font-weight: 700;
+        letter-spacing: -0.02em;
     }
 
-.metric-value {
-    font-size: 2.1rem;
-    font-weight: 700;
-    font-family: var(--font-display) !important;
-    color: #0F172A;
-    margin-bottom: 6px;
-    letter-spacing: -0.045em;
-}
+    .metric-value {
+        font-size: 44px;
+        font-weight: 800;
+        font-family: var(--font-display) !important;
+        color: var(--ink);
+        margin: 2px 0 9px 0;
+        letter-spacing: -0.055em;
+    }
 
     .metric-note {
-        font-size: 0.82rem;
-        color: #64748B;
-        line-height: 1.35;
+        font-size: 0.88rem;
+        color: rgba(0, 16, 24, 0.62);
+        line-height: 1.45;
     }
 
     .section-title {
         font-size: 1.35rem;
         font-weight: 800;
-        color: #0F172A;
+        color: var(--ink);
         margin-top: 16px;
         margin-bottom: 12px;
     }
 
-    .takeaway-box {
-        background: #F8FAFC;
-        border: 1px solid #CBD5E1;
-        padding: 18px;
-        border-radius: 8px;
-        color: #334155;
-        margin-top: 14px;
-        margin-bottom: 18px;
+    .takeaway-box,
+    .callout-box {
+        background: linear-gradient(90deg, rgba(39, 65, 66, 0.07), rgba(211, 153, 107, 0.07));
+        border: 1px solid rgba(39, 65, 66, 0.18);
+        padding: 18px 20px;
+        border-radius: 16px;
+        color: var(--forest);
+        margin-top: 1.25rem;
+        margin-bottom: 1.25rem;
         line-height: 1.55;
     }
 
-    .small-note {
-        color: #475569;
-        font-size: 0.92rem;
-        line-height: 1.5;
+    .callout-box {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 20px 22px;
     }
 
-    /* -------------------------------
-   Oslo-style green sidebar
--------------------------------- */
-
-section[data-testid="stSidebar"] {
-    background: #1b2f33 !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.14) !important;
-}
-
-/* Sidebar inner spacing */
-section[data-testid="stSidebar"] > div {
-    background: #1b2f33 !important;
-    padding-top: 2rem;
-}
-
-/* Sidebar title */
-section[data-testid="stSidebar"] h1 {
-    color: #FFF8EA !important;
-    font-family: var(--font-display) !important;
-    font-weight: 800 !important;
-    letter-spacing: -0.03em;
-}
-
-/* Sidebar labels */
-section[data-testid="stSidebar"] label,
-section[data-testid="stSidebar"] p,
-section[data-testid="stSidebar"] span,
-section[data-testid="stSidebar"] div {
-    color: #FFF8EA !important;
-}
-
-/* Sidebar helper/caption text */
-section[data-testid="stSidebar"] [data-testid="stCaptionContainer"],
-section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p {
-    color: rgba(255, 248, 234, 0.72) !important;
-}
-
-/* Divider line */
-section[data-testid="stSidebar"] hr {
-    border-color: rgba(255, 248, 234, 0.24) !important;
-}
-
-/* Inputs/select boxes */
-section[data-testid="stSidebar"] div[data-baseweb="select"] > div,
-section[data-testid="stSidebar"] div[data-baseweb="input"] > div {
-    background: rgba(255, 248, 234, 0.12) !important;
-    border-color: rgba(255, 248, 234, 0.18) !important;
-    color: #FFF8EA !important;
-}
-
-/* Multiselect selected tags */
-section[data-testid="stSidebar"] span[data-baseweb="tag"] {
-    background: #FFF8EA !important;
-    color: #1b2f33 !important;
-    font-weight: 700 !important;
-}
-
-/* Radio buttons and checkboxes */
-section[data-testid="stSidebar"] input[type="radio"],
-section[data-testid="stSidebar"] input[type="checkbox"] {
-    accent-color: #FFF8EA !important;
-}
-
-/* Slider track/accent */
-section[data-testid="stSidebar"] div[data-testid="stSlider"] div[role="slider"] {
-    background-color: #FFF8EA !important;
-}
-
-/* Sidebar collapse arrows */
-button[data-testid="stSidebarCollapseButton"],
-button[data-testid="stSidebarExpandButton"],
-div[data-testid="stSidebarCollapsedControl"],
-div[data-testid="collapsedControl"] {
-    display: none !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-}
-
-/* -------------------------------
-   Cleaner structured green sidebar
--------------------------------- */
-
-section[data-testid="stSidebar"] {
-    background: #1b2f33 !important;
-    border-right: 1px solid rgba(255, 248, 234, 0.18) !important;
-    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.10);
-}
-
-section[data-testid="stSidebar"] > div {
-    background: #1b2f33 !important;
-    padding: 2rem 1.35rem 1.5rem 1.35rem;
-}
-
-/* Remove default top gap */
-section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] {
-    gap: 0.7rem;
-}
-
-/* Sidebar custom header */
-.sidebar-brand {
-    color: rgba(255, 248, 234, 0.72);
-    font-size: 0.72rem;
-    font-weight: 900;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    margin-bottom: 0.35rem;
-}
-
-.sidebar-title {
-    color: #FFF8EA;
-    font-family: var(--font-display);
-    font-size: 1.75rem;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.04em;
-    margin-bottom: 0.45rem;
-}
-
-.sidebar-subtitle {
-    color: rgba(255, 248, 234, 0.72);
-    font-size: 0.86rem;
-    line-height: 1.45;
-    margin-bottom: 1.35rem;
-}
-
-/* Small section labels */
-.sidebar-section-label {
-    color: #BFEFE0;
-    font-size: 0.72rem;
-    font-weight: 900;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-    margin-top: 1.25rem;
-    margin-bottom: 0.45rem;
-    padding-top: 0.75rem;
-    border-top: 1px solid rgba(255, 248, 234, 0.16);
-}
-
-/* General sidebar text */
-section[data-testid="stSidebar"] label,
-section[data-testid="stSidebar"] p,
-section[data-testid="stSidebar"] span {
-    color: #FFF8EA !important;
-}
-
-/* Widget labels */
-section[data-testid="stSidebar"] div[data-testid="stWidgetLabel"] label,
-section[data-testid="stSidebar"] label p {
-    color: #FFF8EA !important;
-    font-size: 0.88rem !important;
-    font-weight: 700 !important;
-}
-
-/* Radio row spacing */
-section[data-testid="stSidebar"] div[data-testid="stRadio"] {
-    margin-bottom: 0.95rem;
-}
-
-section[data-testid="stSidebar"] div[data-testid="stRadio"] label {
-    padding-right: 0.7rem;
-}
-
-/* Checkboxes */
-section[data-testid="stSidebar"] div[data-testid="stCheckbox"] {
-    margin-top: 0.35rem;
-    margin-bottom: 0.45rem;
-}
-
-section[data-testid="stSidebar"] input[type="checkbox"],
-section[data-testid="stSidebar"] input[type="radio"] {
-    accent-color: #BFEFE0 !important;
-}
-
-/* Slider */
-section[data-testid="stSidebar"] div[data-testid="stSlider"] {
-    margin-bottom: 1rem;
-}
-
-section[data-testid="stSidebar"] div[data-testid="stSlider"] p {
-    color: #FFF8EA !important;
-}
-
-/* Select and multiselect containers */
-section[data-testid="stSidebar"] div[data-baseweb="select"] > div {
-    background: rgba(255, 248, 234, 0.12) !important;
-    border: 1px solid rgba(255, 248, 234, 0.22) !important;
-    border-radius: px !important;
-    min-height: 46px;
-}
-
-/* Select text */
-section[data-testid="stSidebar"] div[data-baseweb="select"] span,
-section[data-testid="stSidebar"] div[data-baseweb="select"] div {
-    color: #FFF8EA !important;
-}
-
-/* Multiselect selected tags */
-section[data-testid="stSidebar"] span[data-baseweb="tag"] {
-    background: #FFF8EA !important;
-    border-radius: 8px !important;
-    padding: 0.25rem 0.35rem !important;
-    margin: 0.16rem !important;
-}
-
-section[data-testid="stSidebar"] span[data-baseweb="tag"] *,
-section[data-testid="stSidebar"] span[data-baseweb="tag"] span {
-    color: #1b2f33 !important;
-    font-weight: 800 !important;
-}
-
-/* Multiselect input area */
-section[data-testid="stSidebar"] input {
-    color: #FFF8EA !important;
-}
-
-/* Dropdown arrow and close icons */
-section[data-testid="stSidebar"] svg {
-    color: #BFEFE0 !important;
-    fill: #BFEFE0 !important;
-}
-
-/* Sidebar divider */
-section[data-testid="stSidebar"] hr {
-    border-color: rgba(255, 248, 234, 0.18) !important;
-    margin-top: 1.4rem;
-    margin-bottom: 1.2rem;
-}
-
-/* Caption / footer note */
-section[data-testid="stSidebar"] [data-testid="stCaptionContainer"],
-section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] p {
-    color: rgba(255, 248, 234, 0.64) !important;
-    font-size: 0.85rem !important;
-    line-height: 1.5;
-}
-
-/* Keep sidebar open and hide collapse button */
-button[data-testid="stSidebarCollapseButton"],
-button[data-testid="stSidebarExpandButton"],
-div[data-testid="stSidebarCollapsedControl"],
-div[data-testid="collapsedControl"],
-button[title="Close sidebar"],
-button[title="Open sidebar"] {
-    display: none !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-}
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-# Extra hero layout: elegant rectangular image behind centered hero box.
-st.markdown(
-    f"""
-    <style>
-    .hero-stage {{
-        position: relative;
-        min-height: 260px;
-        margin-bottom: 30px;
-        padding: 26px 36px;
-        border-radius: 12px;
-        overflow: hidden;
+    .callout-icon {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #274142;
-        box-shadow: 0 18px 42px rgba(0, 16, 24, 0.16);
-    }}
+        border-radius: 999px;
+        background: var(--forest);
+        color: var(--white);
+        font-size: 1.35rem;
+    }
 
-    .hero-image-rect {{
-        display: {hero_bg_display};
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        border-radius: 24px;
-        background:
-            linear-gradient(
-                90deg,
-                rgba(0, 16, 24, 0.78) 0%,
-                rgba(39, 65, 66, 0.62) 48%,
-                rgba(211, 153, 107, 0.22) 100%
-            ),
-            url("{hero_bg_url}");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }} 
+    .callout-box b,
+    .takeaway-box b {
+        color: var(--ink);
+    }
 
+    .small-note {
+        color: var(--forest);
+        font-size: 0.96rem;
+        line-height: 1.55;
+        margin: 1.05rem 0 1.15rem 0;
+    }
 
+    .small-note-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 999px;
+        margin-right: 8px;
+        background: rgba(39, 65, 66, 0.10);
+        color: var(--forest);
+        font-size: 0.88rem;
+    }
 
-    .hero-stage .hero {{
-        position: relative;
-        z-index: 1;
-        width: min(88%, 1120px);
-        margin: 0 auto;
-        padding: 42px 48px;
-        border-radius: 8px;
-        border: 1px solid rgba(211, 153, 107, 0.38);
-        background:
-            linear-gradient(
-                135deg,
-                rgba(0, 16, 24, 0.88) 0%,
-                rgba(39, 65, 66, 0.84) 100%
-            ) !important;
-        color: #D3996B !important;
-        box-shadow: 0 14px 34px rgba(0, 16, 24, 0.28);
-        backdrop-filter: blur(2px);
-    }}
+    .risk-card {
+        display: grid;
+        grid-template-columns: 240px 1fr 1fr;
+        gap: 24px;
+        align-items: center;
+        background: var(--white);
+        border: 1px solid rgba(148, 131, 124, 0.22);
+        border-radius: 16px;
+        padding: 22px 26px;
+        box-shadow: 0 10px 28px rgba(0, 16, 24, 0.055);
+        margin-top: 0.8rem;
+    }
 
-    .hero-stage .hero h1 {{
-        color: #D3996B !important;
-        font-size: 2.65rem;
-        line-height: 1.08;
-        margin-bottom: 1rem;
-        letter-spacing: -0.035em;
-    }}
+    .risk-title-wrap {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
 
-    .hero-stage .hero p {{
-        color: #D3996B !important;
-        max-width: 960px;
-        font-size: 1.05rem;
-        line-height: 1.65;
-        opacity: 0.92;
-    }}
+    .risk-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(39, 65, 66, 0.10);
+        color: var(--forest);
+        font-size: 1.3rem;
+    }
 
-    .hero-stage .hero b {{
-        color: #D3996B !important;
+    .risk-title {
         font-weight: 800;
-    }}
+        color: var(--forest);
+        font-size: 1rem;
+    }
 
-    @media (max-width: 900px) {{
-        .hero-stage {{
-            min-height: 250px;
-            padding: 18px;
-        }}
+    .risk-item {
+        border-left: 1px solid rgba(148, 131, 124, 0.25);
+        padding-left: 26px;
+    }
 
-        .hero-stage .hero {{
-            width: 100%;
-            padding: 30px 26px;
-        }}
+    .risk-label {
+        color: rgba(0, 16, 24, 0.62);
+        font-size: 0.88rem;
+        margin-bottom: 4px;
+    }
 
-        .hero-stage .hero h1 {{
-            font-size: 2rem;
-        }}
-    }}
+    .risk-value {
+        color: var(--ink);
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: 1.25rem;
+        letter-spacing: -0.035em;
+    }
+
+    /* Lightly polish default Streamlit blocks */
+    div[data-testid="stDataFrame"],
+    div[data-testid="stPlotlyChart"] {
+        border-radius: 16px;
+    }
+
+    @media (max-width: 1100px) {
+        .hero-stage {
+            padding: 34px 32px;
+        }
+
+        .hero-stage .hero {
+            width: min(100%, 820px);
+        }
+
+        .hero-stage::before,
+        .hero-stage::after {
+            opacity: 0.38;
+        }
+
+        .risk-card {
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .risk-item {
+            border-left: 0;
+            border-top: 1px solid rgba(148, 131, 124, 0.25);
+            padding-left: 0;
+            padding-top: 14px;
+        }
+    }
     </style>
-    """,
+    """.replace("HERO_BG_URL_PLACEHOLDER", hero_bg_url),
     unsafe_allow_html=True,
 )
 
@@ -925,7 +941,7 @@ st.markdown(
     <div class="hero-stage">
         <div class="hero-image-rect"></div>
         <div class="hero">
-            <h1>TransitIQ — Cost of Doing Nothing Simulator</h1>
+            <h1>TransitIQ: The Price of Delayed Transit</h1>
             <p>
                 If Columbus delays targeted transit investment for <b>{delay_years} years</b>,
                 selected census tracts face an estimated <b>{money(delay_cost)}</b>
@@ -974,7 +990,10 @@ with tab_overview:
         st.markdown(
             f"""
             <div class="metric-card">
-                <div class="metric-label">Compounded delay cost</div>
+                <div class="metric-top">
+                    <div class="metric-icon">$</div>
+                    <div class="metric-label">Compounded delay cost</div>
+                </div>
                 <div class="metric-value">{money(delay_cost)}</div>
                 <div class="metric-note">Estimated cost if intervention is delayed {delay_years} years.</div>
             </div>
@@ -986,7 +1005,10 @@ with tab_overview:
         st.markdown(
             f"""
             <div class="metric-card">
-                <div class="metric-label">Annual cost of inaction</div>
+                <div class="metric-top">
+                    <div class="metric-icon">▥</div>
+                    <div class="metric-label">Annual cost of inaction</div>
+                </div>
                 <div class="metric-value">{money(annual_cost)}</div>
                 <div class="metric-note">Lost wages, healthcare, environment, education, and affordability.</div>
             </div>
@@ -998,7 +1020,10 @@ with tab_overview:
         st.markdown(
             f"""
             <div class="metric-card">
-                <div class="metric-label">Population covered</div>
+                <div class="metric-top">
+                    <div class="metric-icon">◉</div>
+                    <div class="metric-label">Population covered</div>
+                </div>
                 <div class="metric-value">{population:,.0f}</div>
                 <div class="metric-note">Residents in the selected Columbus census tracts.</div>
             </div>
@@ -1010,7 +1035,10 @@ with tab_overview:
         st.markdown(
             f"""
             <div class="metric-card">
-                <div class="metric-label">Delay cost per $1 invested</div>
+                <div class="metric-top">
+                    <div class="metric-icon">↗</div>
+                    <div class="metric-label">Delay cost per $1 invested</div>
+                </div>
                 <div class="metric-value">${delay_cost_per_invested_dollar:,.2f}</div>
                 <div class="metric-note">Compares delay exposure against the selected investment amount.</div>
             </div>
@@ -1020,10 +1048,13 @@ with tab_overview:
 
     st.markdown(
         f"""
-        <div class="takeaway-box">
-            <b>Demo takeaway:</b> This is not just a transit map. It is a policy simulator.
-            A planner can adjust the delay period and investment amount, then see how the cost
-            of waiting compounds across neighborhoods.
+        <div class="callout-box">
+            <div class="callout-icon">☼</div>
+            <div>
+                <b>Demo takeaway:</b> This is not just a transit map. It is a policy simulator.
+                A planner can adjust the delay period and investment amount, then see how the cost
+                of waiting compounds across neighborhoods.
+            </div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -1032,6 +1063,7 @@ with tab_overview:
     st.markdown(
         f"""
         <div class="small-note">
+            <span class="small-note-icon">●</span>
             Current view includes <b>{tract_count}</b> census tracts with an average Transit Hardship Index
             of <b>{avg_hardship:.1f}</b>.
         </div>
@@ -1041,19 +1073,28 @@ with tab_overview:
 
     st.markdown(
         f"""
-    <div class="takeaway-box">
-        <b>Planning risk overlays:</b><br>
-        Average safety warning score: <b>{safety_text}</b><br>
-        Average displacement risk score: <b>{displacement_text}</b><br><br>
-        These scores should not automatically decide investment priority. They should trigger deeper planner review.
-    </div>
-    """,
+        <div class="risk-card">
+            <div class="risk-title-wrap">
+                <div class="risk-icon">◇</div>
+                <div class="risk-title">Planning risk overlays</div>
+            </div>
+            <div class="risk-item">
+                <div class="risk-label">Average safety warning score</div>
+                <div class="risk-value">{safety_text}</div>
+            </div>
+            <div class="risk-item">
+                <div class="risk-label">Average displacement risk score</div>
+                <div class="risk-value">{displacement_text}</div>
+            </div>
+        </div>
+        """,
         unsafe_allow_html=True,
     )
 
 # --------------------------------
 # Tab 2: Map
 # --------------------------------
+
 with tab_map:
     st.markdown(
         '<div class="section-title">Columbus Transit Hardship Map</div>',
@@ -1069,7 +1110,7 @@ with tab_map:
             locations="GEOID",
             featureidkey="properties.GEOID",
             color=map_color_col,
-            color_continuous_scale="YlOrRd",
+            color_continuous_scale=MAP_SCALE,
             mapbox_style="carto-positron",
             zoom=9.4,
             center={"lat": 39.9612, "lon": -82.9988},
@@ -1103,7 +1144,7 @@ with tab_map:
                 mode="markers",
                 marker=dict(
                     size=5,
-                    color="#2563EB",
+                    color=FOREST,
                     opacity=0.65,
                 ),
                 text=bus_stops_df["stop_name"],
