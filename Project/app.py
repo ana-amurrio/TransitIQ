@@ -1574,7 +1574,7 @@ with tab_map:
             "Healthcare": CLAY,
             "Environment": SAND,
             "Education": TAUPE,
-            "Forgone affordability": INK,
+            "Forgone affordability": "#9B8FA8",   # dusty mauve
         }
 
         tract_component_rows = []
@@ -1629,22 +1629,7 @@ with tab_map:
                 margin=dict(l=10, r=90, t=60, b=20),
             )
             st.plotly_chart(fig_tract, use_container_width=True)
-            st.caption(
-                "Percentages show each component's share of this tract's total annual "
-                "cost — useful when one driver dominates, as it often does in severely "
-                "rent-burdened tracts."
-            )
-
-        st.markdown(
-            """
-            <div class="takeaway-box">
-                <b>How to use this map:</b> Hover over a tract to see its hardship score,
-                toggle COTA bus stops in the sidebar, and click any tract — or pick it from the
-                dropdown — to open its cost breakdown.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+            st.caption("% = each component's share of this tract's total annual cost.")
 
 # --------------------------------
 # Tab 2: Scenario Compare
