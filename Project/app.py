@@ -2003,6 +2003,16 @@ with tab_equity:
 
     equity_df = equity_df.sort_values("delay_cost", ascending=False)
 
+    # Fixed Y-axis ceiling — always based on 5-year max so bars grow visually
+    # when switching 1yr → 3yr → 5yr instead of rescaling each time.
+    _equity_5yr = filtered_df.groupby("vulnerability_segment")["cumulative_delay_5yr_cost"].sum() \
+        if "cumulative_delay_5yr_cost" in filtered_df.columns else equity_df["delay_cost"]
+    _y_max_total = _equity_5yr.max() * 1.25 if len(_equity_5yr) > 0 else equity_df["delay_cost"].max() * 1.25
+
+    _pop_by_seg = filtered_df.groupby("vulnerability_segment")["total_population"].sum()
+    _5yr_per_cap = (_equity_5yr / _pop_by_seg).dropna()
+    _y_max_pc = _5yr_per_cap.max() * 1.25 if len(_5yr_per_cap) > 0 else equity_df["delay_cost_per_capita"].max() * 1.25
+
     # Segment colour map — consistent with map and triage tabs
     _seg_colors = {
         "High-need transit burden":   FOREST,
@@ -2065,11 +2075,10 @@ with tab_equity:
             hover_data={"tracts": True, "population": ":,.0f", "avg_hardship": ":.1f", "delay_cost": ":,.0f"},
         )
         fig_equity_cost.update_traces(texttemplate="$%{text:,.3s}", textposition="outside")
-        _max_cost = equity_df["delay_cost"].max()
         fig_equity_cost.update_layout(
             height=420, xaxis_title="", yaxis_title=f"{delay_years}-yr delay cost ($)",
             yaxis_tickprefix="$", showlegend=False,
-            yaxis_range=[0, _max_cost * 1.2],
+            yaxis_range=[0, _y_max_total],
             margin=dict(l=20, r=40, t=30, b=80),
         )
         st.plotly_chart(fig_equity_cost, use_container_width=True)
@@ -2089,11 +2098,10 @@ with tab_equity:
             hover_data={"tracts": True, "population": ":,.0f", "avg_hardship": ":.1f", "delay_cost_per_capita": ":,.0f"},
         )
         fig_equity_per_capita.update_traces(texttemplate="$%{text:,.0f}", textposition="outside")
-        _max_pc = equity_df["delay_cost_per_capita"].max()
         fig_equity_per_capita.update_layout(
             height=420, xaxis_title="", yaxis_title="Cost per resident ($)",
             yaxis_tickprefix="$", showlegend=False,
-            yaxis_range=[0, _max_pc * 1.2],
+            yaxis_range=[0, _y_max_pc],
             margin=dict(l=20, r=40, t=30, b=80),
         )
         st.plotly_chart(fig_equity_per_capita, use_container_width=True)
