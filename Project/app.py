@@ -892,6 +892,17 @@ if not TRACTS_PATH.exists():
 
 df = load_data()
 df["tract_label"] = df["GEOID"].apply(format_tract_label)
+
+# Enrich tract_label with neighbourhood names if lookup CSV exists
+_names_path = BASE_DIR / "data" / "processed" / "tract_neighborhood_names.csv"
+if _names_path.exists():
+    _names_df = pd.read_csv(_names_path, dtype={"GEOID": str})
+    _names_df["GEOID"] = _names_df["GEOID"].str.zfill(11)
+    df["GEOID"] = df["GEOID"].astype(str).str.zfill(11)
+    df = df.merge(_names_df[["GEOID", "display_name"]], on="GEOID", how="left")
+    # Use neighbourhood display_name where available, fall back to tract_label
+    df["tract_label"] = df["display_name"].fillna(df["tract_label"])
+    df = df.drop(columns=["display_name"])
 tract_geojson = load_tract_geojson()
 bus_stops_df = load_bus_stops()
 
@@ -1578,10 +1589,13 @@ with tab_map:
                 )
 
         if tract_component_rows:
-            tract_component_df = pd.DataFrame(tract_component_rows).sort_values(
-                "Annual cost",
-                ascending=True,
+            # Fixed display order — consistent across all tracts
+            _fixed_order = ["Lost wages", "Healthcare", "Environment", "Education", "Forgone affordability"]
+            tract_component_df = pd.DataFrame(tract_component_rows)
+            tract_component_df["_order"] = tract_component_df["Component"].map(
+                {c: i for i, c in enumerate(reversed(_fixed_order))}
             )
+            tract_component_df = tract_component_df.sort_values("_order").drop(columns=["_order"])
 
             tract_total = tract_component_df["Annual cost"].sum()
 
