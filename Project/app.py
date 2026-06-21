@@ -1298,7 +1298,7 @@ st.markdown(
         "🗺️ Hardship Map",
         "📊 Cost Trajectory",
         "🏛️ ROI of Acting Now",
-        "🛡️ Responsible A",
+        "🛡️ Responsible AI",
     ]
 )
 
