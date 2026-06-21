@@ -1321,68 +1321,46 @@ with tab_overview:
         f'⚠ If we wait — {delay_years}-year delay scenario</div>',
         unsafe_allow_html=True,
     )
-    row2_col1, row2_col2 = st.columns(2)
+    _transit_dep_pop = (
+        filtered_df["transit_dependent_population_estimate"].sum()
+        if "transit_dependent_population_estimate" in filtered_df.columns
+        else filtered_df["total_population"].sum()
+    )
+    _cost_per_worker = delay_cost / _transit_dep_pop if _transit_dep_pop > 0 else 0
+    _delay_yrs_label = "year" if delay_years == 1 else "years"
 
-    with row2_col1:
-        st.markdown(
-            f"""
-            <div class="metric-card" style="border-left:4px solid #b94a48;">
+    st.markdown(
+        f"""
+        <div style="display:flex;gap:1rem;margin-bottom:1rem;">
+            <div class="metric-card" style="flex:1;border-left:4px solid #b94a48;">
                 <div class="metric-top">
                     <div class="metric-icon" style="background:rgba(185,74,72,0.10);color:#b94a48;">$</div>
                     <div class="metric-label" style="color:#b94a48;">Compounded delay cost</div>
                 </div>
                 <div class="metric-value" style="color:#b94a48;">{money(delay_cost)}</div>
-                <div class="metric-note">Total compounded cost if investment is delayed {delay_years} {"year" if delay_years == 1 else "years"}.</div>
+                <div class="metric-note">Total cost if investment delayed {delay_years} {_delay_yrs_label}.</div>
             </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with row2_col2:
-        st.markdown(
-            f"""
-            <div class="metric-card" style="border-left:4px solid #b94a48;">
+            <div class="metric-card" style="flex:1;border-left:4px solid #b94a48;">
                 <div class="metric-top">
                     <div class="metric-icon" style="background:rgba(185,74,72,0.10);color:#b94a48;">↗</div>
                     <div class="metric-label" style="color:#b94a48;">Delay cost per $1 invested</div>
                 </div>
                 <div class="metric-value" style="color:#b94a48;">${delay_cost_per_invested_dollar:,.2f}</div>
-                <div class="metric-note">Every $1 invested avoids this much in compounding social cost.</div>
+                <div class="metric-note">Every $1 invested avoids this in social cost.</div>
             </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    st.markdown(
-        f"""
-        <div class="small-note">
-            <span class="small-note-icon">●</span>
-            Current view includes <b>{tract_count}</b> census tracts with an average Transit Hardship Index
-            of <b>{avg_hardship:.1f}</b>.
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.markdown(
-        f"""
-        <div class="risk-card">
-            <div class="risk-title-wrap">
-                <div class="risk-icon">◇</div>
-                <div class="risk-title">Planning risk overlays</div>
-            </div>
-            <div class="risk-item">
-                <div class="risk-label">Average safety warning score</div>
-                <div class="risk-value">{safety_text}</div>
-            </div>
-            <div class="risk-item">
-                <div class="risk-label">Average displacement risk score</div>
-                <div class="risk-value">{displacement_text}</div>
+            <div class="metric-card" style="flex:1;border-left:4px solid #b94a48;">
+                <div class="metric-top">
+                    <div class="metric-icon" style="background:rgba(185,74,72,0.10);color:#b94a48;">▲</div>
+                    <div class="metric-label" style="color:#b94a48;">Cost per transit-dependent worker</div>
+                </div>
+                <div class="metric-value" style="color:#b94a48;">{money(_cost_per_worker)}</div>
+                <div class="metric-note">Borne by {_transit_dep_pop:,.0f} transit-dependent residents.</div>
             </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
+
 
 # --------------------------------
 # Tab 2: Map
@@ -2275,6 +2253,24 @@ with tab_responsible_ai:
         "confidence interval. Its purpose: show planners a plausible range instead of a false-precision single number."
     )
 
+    # ── Data sources ──
+    st.markdown(
+        """
+        <div style="background:#fff;border:1px solid #e2ddd9;border-radius:10px;padding:0.9rem 1.2rem;margin:1.2rem 0 0.5rem 0;font-size:0.85rem;color:#555;line-height:1.8;">
+            <span style="font-weight:700;color:#1a1a1a;">Data sources: </span>
+            ACS 2019–2023 5-Year Estimates &nbsp;·&nbsp;
+            BLS OEWS 2024 (Columbus MSA) &nbsp;·&nbsp;
+            COTA GTFS 2025 &nbsp;·&nbsp;
+            NHTSA FARS 2023 &nbsp;·&nbsp;
+            LEHD LODES 2021 &nbsp;·&nbsp;
+            EPA Social Cost of Carbon 2023 &nbsp;·&nbsp;
+            Urban Institute (missed care rate baseline) &nbsp;·&nbsp;
+            H+T Affordability Index (CNT)
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
     # ── Assumptions table ──
     st.markdown(
         '<div class="section-title" style="margin-top:1.5rem;">Core Model Assumptions</div>',
@@ -2394,7 +2390,10 @@ with tab_tracts:
         color="vulnerability_segment",
         color_discrete_map=segment_colors,
     )
-    fig_triage.update_traces(textposition="outside", cliponaxis=False)
+    fig_triage.update_traces(
+        textposition="outside", cliponaxis=False,
+        hovertemplate="<b>%{y}</b><br>Delay cost per resident: $%{x:,.0f}<extra></extra>",
+    )
     fig_triage.update_layout(
         height=400,
         xaxis_title="Delay cost per resident ($)",
@@ -2405,6 +2404,31 @@ with tab_tracts:
         showlegend=True,
     )
     st.plotly_chart(fig_triage, use_container_width=True)
+
+    # ── Top 3 recommendation callout ──────────────────────────────────────
+    top3 = triage_df.nlargest(3, "priority_score").reset_index(drop=True)
+    _cards = ""
+    for rank, row in top3.iterrows():
+        _cards += f"""
+        <div style="flex:1;background:#fff;border:1px solid #e2ddd9;border-top:4px solid {FOREST};border-radius:10px;padding:1rem 1.2rem;">
+            <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:4px;">#{rank+1} Priority</div>
+            <div style="font-size:1rem;font-weight:700;color:{FOREST};margin-bottom:8px;">{row["tract_label"]}</div>
+            <div style="font-size:0.82rem;color:#555;line-height:1.7;">
+                Priority score: <b>{row["priority_score"]:.0f}/100</b><br>
+                Hardship index: <b>{row["transit_hardship_index"]:.1f}</b><br>
+                Cost per resident: <b>{money(row["delay_cost_per_resident"])}</b> over {delay_years} yr
+            </div>
+        </div>"""
+    st.markdown(
+        f"""
+        <div style="margin-top:0.75rem 0 0.25rem 0;">
+            <div style="font-size:0.9rem;font-weight:600;color:#444;margin-bottom:0.6rem;">Top investment priorities — highest combined hardship and per-resident delay cost</div>
+            <div style="display:flex;gap:1rem;">{_cards}</div>
+            <div style="font-size:0.78rem;color:#999;margin-top:8px;">Cross-reference displacement risk before committing funding.</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     st.markdown(
         '<div class="section-title" style="margin-top:1.5rem;">Full Priority Table — Top 20 Tracts</div>',
