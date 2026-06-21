@@ -514,6 +514,40 @@ st.markdown(
         line-height: 1.5;
     }
 
+
+        /* -------------------------------
+       Sidebar download button (Export)
+       Streamlit renders this as a white-background button. The broad
+       "section[data-testid=stSidebar] p/span/div { color: white }" rule
+       above was forcing the label text white-on-white, making it
+       invisible (only the color emoji survived, since emoji glyphs
+       ignore the CSS color property). Style it explicitly instead of
+       inheriting the global sidebar text color.
+    -------------------------------- */
+    section[data-testid="stSidebar"] div[data-testid="stDownloadButton"] button {
+        background: var(--sand) !important;
+        border: none !important;
+        border-radius: 10px !important;
+        width: 100% !important;
+        padding: 0.65rem 1rem !important;
+        box-shadow: 0 6px 16px rgba(252, 170, 103, 0.28) !important;
+    }
+
+    section[data-testid="stSidebar"] div[data-testid="stDownloadButton"] button p,
+    section[data-testid="stSidebar"] div[data-testid="stDownloadButton"] button span,
+    section[data-testid="stSidebar"] div[data-testid="stDownloadButton"] button div {
+        color: var(--ink) !important;
+        font-weight: 700 !important;
+        font-size: 0.92rem !important;
+    }
+
+    section[data-testid="stSidebar"] div[data-testid="stDownloadButton"] button:hover {
+        background: #ffb87a !important;
+        box-shadow: 0 8px 20px rgba(252, 170, 103, 0.4) !important;
+    }
+
+
+
 /* ==================================
    SIDEBAR TOGGLE BUTTON - VISIBLE
 ================================== */
@@ -1261,10 +1295,10 @@ st.markdown(
         "💰 Cost of Inaction",
         "⚖️ Who Pays?",
         "🎯 Where to Invest First",
-        "🗺️ Map",
-        "📊 What's Compounding",
-        "🏛️ Invest Now vs. Wait",
-        "🧭 Assumptions & AI",
+        "🗺️ Hardship Map",
+        "📊 Cost Trajectory",
+        "🏛️ ROI of Acting Now",
+        "🛡️ Responsible A",
     ]
 )
 
