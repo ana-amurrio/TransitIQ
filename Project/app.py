@@ -260,6 +260,29 @@ st.markdown(
     <style>
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
+    [data-testid="stSidebarNav"] {display: none !important;}
+    [data-testid="stSidebarNavItems"] {display: none !important;}
+    [data-testid="stSidebarNavSeparator"] {display: none !important;}
+    /* Keep sidebar always open — no collapse/expand in demo mode */
+    section[data-testid="stSidebar"] {
+        transform: translateX(0) !important;
+        min-width: 21rem !important;
+        width: 21rem !important;
+        display: block !important;
+    }
+    section[data-testid="stSidebar"] > div {
+        width: 21rem !important;
+    }
+    [data-testid="stSidebarCollapseButton"] {display: none !important;}
+    [data-testid="stSidebarExpandButton"] {display: none !important;}
+    header[data-testid="stHeader"] {display: none !important;}
+    /* Hide only the keyboard shortcut text label inside the collapse/expand button,
+       NOT the button itself — so the sidebar can still be toggled. */
+    [data-testid="stSidebarCollapseButton"] [data-testid="stMarkdownContainer"],
+    [data-testid="stSidebarExpandButton"] [data-testid="stMarkdownContainer"] {display: none !important;}
+    /* Streamlit 1.37+ floating keyboard shortcut hint */
+    [data-testid="InputInstructions"] {display: none !important;}
+    div[class*="keyboardShortcut"] {display: none !important;}
 
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Material+Symbols+Outlined&display=swap');
 
@@ -938,6 +961,54 @@ with st.sidebar.container():
     else:
         selected_segments = []
 
+with st.sidebar.container():
+    st.markdown('<div class="sidebar-section-label">Tract focus</div>', unsafe_allow_html=True)
+
+    _tracts_sorted = (
+        df[["GEOID", "tract_label", "transit_hardship_index", "vulnerability_segment"]]
+        .sort_values("transit_hardship_index", ascending=False)
+    )
+    _tract_geoid_list = _tracts_sorted["GEOID"].tolist()
+    _tract_lookup_sidebar = _tracts_sorted.set_index("GEOID").to_dict("index")
+
+    def _sidebar_tract_label(geoid):
+        info = _tract_lookup_sidebar.get(geoid, {})
+        name = info.get("tract_label", geoid)
+        hardship = info.get("transit_hardship_index", "")
+        segment = info.get("vulnerability_segment", "")
+        short_seg = segment.split()[0] if segment else ""
+        return f"{name}  ·  hardship {hardship:.0f}  ·  {short_seg}" if hardship != "" else name
+
+    selected_tract_geoids = st.multiselect(
+        "Focus on specific tracts",
+        options=_tract_geoid_list,
+        default=[],
+        format_func=_sidebar_tract_label,
+        placeholder="All tracts shown",
+    )
+    if selected_tract_geoids:
+        st.caption(f"{len(selected_tract_geoids)} tract(s) selected — all other filters still apply.")
+
+with st.sidebar.container():
+    st.markdown('<div class="sidebar-section-label">Model assumptions</div>', unsafe_allow_html=True)
+    st.caption("Adjust these to test sensitivity. All outputs update live.")
+
+    missed_care_pct = st.slider(
+        "Missed care rate (%)",
+        min_value=1, max_value=20, value=5, step=1, format="%d%%",
+        help="% of transit-dependent residents who miss healthcare per year. Default: 5% (Urban Institute).",
+    )
+    cost_per_episode = st.slider(
+        "Cost per missed care episode ($)",
+        min_value=500, max_value=3000, value=1200, step=100, format="$%d",
+        help="Average cost of a missed healthcare visit. Default: $1,200.",
+    )
+    growth_rate_pct = st.slider(
+        "Annual growth rate (%)",
+        min_value=1, max_value=6, value=3, step=1, format="%d%%",
+        help="Blended annual cost growth rate for compounding. Default: 2.5% (BLS/Census trend).",
+    )
+
 # Map layer selector (data prep only — not rendered)
 map_layer_options = {
     "Transit Hardship Index": "transit_hardship_index",
@@ -978,9 +1049,46 @@ if selected_segments and "vulnerability_segment" in filtered_df.columns:
 if show_transit_deserts_only and "is_transit_desert" in filtered_df.columns:
     filtered_df = filtered_df[filtered_df["is_transit_desert"] == True]
 
+if selected_tract_geoids:
+    filtered_df = filtered_df[filtered_df["GEOID"].isin(selected_tract_geoids)]
+
 if filtered_df.empty:
     st.warning("No tracts match the current filters. Adjust the sidebar controls.")
     st.stop()
+
+# --------------------------------
+# Apply assumption adjustments (live recompute from sliders)
+# --------------------------------
+_missed_care_rate = missed_care_pct / 100
+_growth_rate = growth_rate_pct / 100
+
+# Scale healthcare by ratio of new assumptions vs defaults (5% rate, $1,200/episode)
+_healthcare_scale = (_missed_care_rate / 0.05) * (cost_per_episode / 1200)
+filtered_df = filtered_df.copy()
+filtered_df["healthcare_annual"] = (filtered_df["healthcare_annual"] * _healthcare_scale).round(2)
+
+# Recompute annual total from adjusted components
+_components = ["lost_wages_annual", "healthcare_annual", "environment_annual",
+               "education_annual", "forgone_affordability_annual"]
+_available_components = [c for c in _components if c in filtered_df.columns]
+filtered_df["cost_of_inaction_annual"] = filtered_df[_available_components].sum(axis=1).round(2)
+
+# Recompute cumulative delay costs with adjusted growth rate
+_component_rates = {
+    "lost_wages_annual": 0.035,
+    "healthcare_annual": 0.045,
+    "environment_annual": _growth_rate,
+    "education_annual": 0.012,
+    "forgone_affordability_annual": 0.03,
+}
+for _dy in (1, 3, 5):
+    _cum = pd.Series(0.0, index=filtered_df.index)
+    for _yr in range(1, _dy + 1):
+        for _comp, _rate in _component_rates.items():
+            if _comp in filtered_df.columns:
+                _cum += filtered_df[_comp] * (1 + _rate) ** _yr
+    filtered_df[f"cumulative_delay_{_dy}yr_cost"] = _cum.round(2)
+
 
 
 # --------------------------------
@@ -1131,21 +1239,21 @@ st.markdown(
 # --------------------------------
 (
     tab_overview,
-    tab_map,
-    tab_scenario,
-    tab_cost,
     tab_equity,
-    tab_responsible_ai,
     tab_tracts,
+    tab_map,
+    tab_cost,
+    tab_scenario,
+    tab_responsible_ai,
 ) = st.tabs(
     [
-        "🏠 Overview",
+        "💰 Cost of Inaction",
+        "⚖️ Who Pays?",
+        "🎯 Where to Invest First",
         "🗺️ Map",
-        "🏛️ Scenario Compare",
-        "📊 Cost Breakdown",
-        "⚖️ Equity Impact",
-        "🧭 Assumptions & Responsible AI",
-        "🔥 High-Hardship Tracts",
+        "📊 What's Compounding",
+        "🏛️ Invest Now vs. Wait",
+        "🧭 Assumptions & AI",
     ]
 )
 
@@ -1154,24 +1262,16 @@ st.markdown(
 # Tab 1: Overview
 # --------------------------------
 with tab_overview:
-    col1, col2, col3, col4 = st.columns(4)
 
-    with col1:
-        st.markdown(
-            f"""
-            <div class="metric-card">
-                <div class="metric-top">
-                    <div class="metric-icon">$</div>
-                    <div class="metric-label">Compounded delay cost</div>
-                </div>
-                <div class="metric-value">{money(delay_cost)}</div>
-                <div class="metric-note">Estimated cost if intervention is delayed {delay_years} years.</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+    # --- Row 1: Current state (doesn't change with delay slider) ---
+    st.markdown(
+        '<div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.12em; '
+        'color: var(--taupe); font-weight:700; margin-bottom:8px;">Current state — right now, today</div>',
+        unsafe_allow_html=True,
+    )
+    row1_col1, row1_col2 = st.columns(2)
 
-    with col2:
+    with row1_col1:
         st.markdown(
             f"""
             <div class="metric-card">
@@ -1180,55 +1280,67 @@ with tab_overview:
                     <div class="metric-label">Annual cost of inaction</div>
                 </div>
                 <div class="metric-value">{money(annual_cost)}</div>
-                <div class="metric-note">Lost wages, healthcare, environment, education, and affordability.</div>
+                <div class="metric-note">Cost per year, right now — the base rate the model compounds forward.</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    with col3:
+    with row1_col2:
         st.markdown(
             f"""
             <div class="metric-card">
                 <div class="metric-top">
                     <div class="metric-icon">◉</div>
-                    <div class="metric-label">Population covered</div>
+                    <div class="metric-label">Population at risk</div>
                 </div>
                 <div class="metric-value">{population:,.0f}</div>
-                <div class="metric-note">Residents in the selected Columbus census tracts.</div>
+                <div class="metric-note">Residents in selected tracts — same people, however long we wait.</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    with col4:
-        st.markdown(
-            f"""
-            <div class="metric-card">
-                <div class="metric-top">
-                    <div class="metric-icon">↗</div>
-                    <div class="metric-label">Delay cost per $1 invested</div>
-                </div>
-                <div class="metric-value">${delay_cost_per_invested_dollar:,.2f}</div>
-                <div class="metric-note">Compares delay exposure against the selected investment amount.</div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+    st.markdown("<div style='margin-top:1.2rem;'></div>", unsafe_allow_html=True)
 
+    # --- Row 2: Scenario outputs (change with delay slider) ---
     st.markdown(
-        f"""
-        <div class="callout-box">
-            <div class="callout-icon">☼</div>
-            <div>
-                <b>What you're looking at:</b> not just a transit map, but a policy simulator.
-                Adjust the delay period and investment amount in the sidebar to see how the cost
-                of waiting compounds across neighborhoods.
-            </div>
-        </div>
-        """,
+        f'<div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.12em; '
+        f'color: #b94a48; font-weight:700; margin-bottom:8px;">'
+        f'⚠ If we wait — {delay_years}-year delay scenario</div>',
         unsafe_allow_html=True,
     )
+    row2_col1, row2_col2 = st.columns(2)
+
+    with row2_col1:
+        st.markdown(
+            f"""
+            <div class="metric-card" style="border-left:4px solid #b94a48;">
+                <div class="metric-top">
+                    <div class="metric-icon" style="background:rgba(185,74,72,0.10);color:#b94a48;">$</div>
+                    <div class="metric-label" style="color:#b94a48;">Compounded delay cost</div>
+                </div>
+                <div class="metric-value" style="color:#b94a48;">{money(delay_cost)}</div>
+                <div class="metric-note">Total compounded cost if investment is delayed {delay_years} {"year" if delay_years == 1 else "years"}.</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with row2_col2:
+        st.markdown(
+            f"""
+            <div class="metric-card" style="border-left:4px solid #b94a48;">
+                <div class="metric-top">
+                    <div class="metric-icon" style="background:rgba(185,74,72,0.10);color:#b94a48;">↗</div>
+                    <div class="metric-label" style="color:#b94a48;">Delay cost per $1 invested</div>
+                </div>
+                <div class="metric-value" style="color:#b94a48;">${delay_cost_per_invested_dollar:,.2f}</div>
+                <div class="metric-note">Every $1 invested avoids this much in compounding social cost.</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     st.markdown(
         f"""
@@ -1285,16 +1397,28 @@ with tab_map:
             zoom=9.4,
             center={"lat": 39.9612, "lon": -82.9988},
             opacity=0.72,
-            custom_data=["GEOID"],
-            hover_name="tract_label",
-            hover_data={
-                "GEOID": True,
-                "transit_hardship_index": ":.1f",
-                "vulnerability_segment": True,
-                delay_col: ":,.0f",
-                "cost_of_inaction_annual": ":,.0f",
-                "total_population": ":,.0f",
-            },
+            custom_data=[
+                "GEOID",
+                "tract_label",
+                "transit_hardship_index",
+                "vulnerability_segment",
+                delay_col,
+                "cost_of_inaction_annual",
+                "total_population",
+            ],
+        )
+
+        fig_map.update_traces(
+            hovertemplate=(
+                "<b>%{customdata[1]}</b><br>"
+                "<span style='color:#888;font-size:0.82em'>GEOID %{customdata[0]} · Columbus, OH</span><br><br>"
+                "<b>Hardship Index:</b> %{customdata[2]:.1f}<br>"
+                "<b>Segment:</b> %{customdata[3]}<br>"
+                f"<b>{delay_years}-Yr Delay Cost:</b> $%{{customdata[4]:,.0f}}<br>"
+                "<b>Annual Cost of Inaction:</b> $%{customdata[5]:,.0f}<br>"
+                "<b>Population:</b> %{customdata[6]:,.0f}"
+                "<extra></extra>"
+            )
         )
 
         fig_map.update_layout(
@@ -1412,7 +1536,7 @@ with tab_map:
                 <div class="metric-label">Selected tract</div>
                 <div class="metric-value" style="font-size: 30px;">{selected_label}</div>
                 <div class="metric-note">
-                    <span style="color: rgba(0,16,24,0.5);">GEOID {selected_geoid}</span><br>
+                    <span style="color: rgba(0,16,24,0.35); font-size: 0.78rem;">Census GEOID {selected_geoid}</span><br>
                     <b>Segment:</b> {segment_value}<br>
                     <b>Hardship index:</b> {selected_row["transit_hardship_index"]:.1f}<br>
                     <b>Annual cost:</b> {money(selected_row["cost_of_inaction_annual"])}<br>
@@ -1517,10 +1641,18 @@ with tab_scenario:
         unsafe_allow_html=True,
     )
 
-    scenario_label = f"Wait {delay_years} year" if delay_years == 1 else f"Wait {delay_years} years"
+    # ── Pre-compute costs at 1yr / 3yr / 5yr for both charts ──
+    _c1 = filtered_df["cumulative_delay_1yr_cost"].sum() if "cumulative_delay_1yr_cost" in filtered_df.columns else 0
+    _c3 = filtered_df["cumulative_delay_3yr_cost"].sum() if "cumulative_delay_3yr_cost" in filtered_df.columns else 0
+    _c5 = filtered_df["cumulative_delay_5yr_cost"].sum() if "cumulative_delay_5yr_cost" in filtered_df.columns else 0
 
-    # Headline number: this is the comparison judges and planners actually want —
-    # not two raw totals, but the cost AVOIDED by acting now.
+    # Per-resident figures (based on at-risk population)
+    _pop = filtered_df["total_population"].sum()
+    _pr1 = _c1 / _pop if _pop > 0 else 0
+    _pr3 = _c3 / _pop if _pop > 0 else 0
+    _pr5 = _c5 / _pop if _pop > 0 else 0
+
+    # ── Headline callout ──
     st.markdown(
         f"""
         <div class="callout-box">
@@ -1536,68 +1668,155 @@ with tab_scenario:
         unsafe_allow_html=True,
     )
 
-    # Stacked bars: the "Investment" segment is identical in both bars (same base
-    # spend either way). Only the "Wait" bar carries the extra "Cost of waiting"
-    # segment — that segment IS the cost avoided, made visible rather than implied.
-    scenario_rows = [
-        {"Scenario": "Invest now", "Segment": "Investment", "Value": investment_amount},
-        {"Scenario": "Invest now", "Segment": "Cost of waiting", "Value": 0},
-        {"Scenario": scenario_label, "Segment": "Investment", "Value": investment_amount},
-        {"Scenario": scenario_label, "Segment": "Cost of waiting", "Value": delay_cost},
-    ]
-    scenario_df = pd.DataFrame(scenario_rows)
+    # ── Per-resident stat row ──
+    st.markdown(
+        f"""
+        <div style="display:flex;gap:1rem;margin:0.75rem 0 1.25rem 0;">
+            <div style="flex:1;background:#fff;border:1px solid #e2ddd9;border-radius:10px;padding:1rem 1.2rem;">
+                <div style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Wait 1 year · per resident</div>
+                <div style="font-size:1.6rem;font-weight:700;color:{INK};">${_pr1:,.0f}</div>
+            </div>
+            <div style="flex:1;background:#fff;border:1px solid #e2ddd9;border-radius:10px;padding:1rem 1.2rem;">
+                <div style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Wait 3 years · per resident</div>
+                <div style="font-size:1.6rem;font-weight:700;color:#b94a48;">${_pr3:,.0f}</div>
+            </div>
+            <div style="flex:1;background:#fff;border:1px solid #e2ddd9;border-radius:10px;padding:1rem 1.2rem;">
+                <div style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Wait 5 years · per resident</div>
+                <div style="font-size:1.6rem;font-weight:700;color:#b94a48;">${_pr5:,.0f}</div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-    fig_scenario = px.bar(
-        scenario_df,
+    # ── CHART 1: Line chart — compounding gap year by year ──
+    st.markdown(
+        '<div style="font-size:0.95rem;font-weight:600;color:#444;margin-bottom:0.2rem;">The widening gap: every year of delay adds to total exposure</div>',
+        unsafe_allow_html=True,
+    )
+
+    # Build year-by-year cumulative cost for the line chart
+    _comp_cols = {
+        "lost_wages_annual": 0.035,
+        "healthcare_annual": 0.045,
+        "environment_annual": _growth_rate,
+        "education_annual": 0.012,
+        "forgone_affordability_annual": 0.03,
+    }
+    _line_rows = []
+    for _yr in range(0, 6):
+        _cum = 0.0
+        for _col, _rate in _comp_cols.items():
+            if _col in filtered_df.columns:
+                _cum += sum(filtered_df[_col].sum() * (1 + _rate) ** y for y in range(1, _yr + 1))
+        _line_rows.append({"Year": _yr, "Invest Now": investment_amount, "Cost of Waiting": _cum})
+
+    line_df = pd.DataFrame(_line_rows)
+
+    import plotly.graph_objects as go
+    fig_line = go.Figure()
+
+    fig_line.add_trace(go.Scatter(
+        x=line_df["Year"], y=line_df["Invest Now"],
+        mode="lines+markers", name="Invest Now",
+        line=dict(color=FOREST, width=3, dash="dash"),
+        marker=dict(size=7),
+        hovertemplate="Year %{x}: <b>$%{y:,.0f}</b><extra>Invest Now</extra>",
+    ))
+    fig_line.add_trace(go.Scatter(
+        x=line_df["Year"], y=line_df["Cost of Waiting"],
+        mode="lines+markers", name="Cumulative cost of delay",
+        line=dict(color="#C0392B", width=3),
+        marker=dict(size=7),
+        hovertemplate="Year %{x}: <b>$%{y:,.0f}</b><extra>Cost of Waiting</extra>",
+        fill="tonexty", fillcolor="rgba(192,57,43,0.08)",
+    ))
+
+    # Annotate year 5 gap
+    fig_line.add_annotation(
+        x=5, y=_c5 / 2,
+        text=f"<b>{money(_c5)}<br>avoidable cost</b>",
+        showarrow=False,
+        font=dict(size=12, color="#C0392B", family=PLOTLY_FONT),
+        bgcolor="rgba(255,255,255,0.85)",
+        bordercolor="#C0392B",
+        borderwidth=1,
+        borderpad=6,
+    )
+
+    fig_line.update_layout(
+        height=380,
+        xaxis=dict(
+            tickmode="array", tickvals=list(range(0, 6)),
+            ticktext=["Now", "Yr 1", "Yr 2", "Yr 3", "Yr 4", "Yr 5"],
+            title="",
+        ),
+        yaxis=dict(title="Cumulative cost ($)", tickprefix="$"),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+        margin=dict(l=20, r=20, t=40, b=40),
+    )
+
+    st.plotly_chart(fig_line, use_container_width=True)
+
+    st.markdown('<div style="margin:1.5rem 0 0.4rem 0;border-top:1px solid #e2ddd9;"></div>', unsafe_allow_html=True)
+
+    # ── CHART 2: Three-scenario stacked bar ──
+    st.markdown(
+        '<div style="font-size:0.95rem;font-weight:600;color:#444;margin-bottom:0.2rem;">Total exposure by scenario — investment vs. avoidable cost</div>',
+        unsafe_allow_html=True,
+    )
+
+    bar_rows = []
+    for _yrs, _cost in [(1, _c1), (3, _c3), (5, _c5)]:
+        lbl = f"Wait {_yrs} yr" if _yrs == 1 else f"Wait {_yrs} yrs"
+        bar_rows += [
+            {"Scenario": lbl, "Segment": "Investment", "Value": investment_amount},
+            {"Scenario": lbl, "Segment": "Avoidable cost of delay", "Value": _cost},
+        ]
+    bar_df = pd.DataFrame(bar_rows)
+
+    fig_bars = px.bar(
+        bar_df,
         x="Scenario",
         y="Value",
         color="Segment",
-        category_orders={"Scenario": ["Invest now", scenario_label]},
-        color_discrete_map={"Investment": FOREST, "Cost of waiting": SAND},
+        barmode="stack",
+        category_orders={"Scenario": ["Wait 1 yr", "Wait 3 yrs", "Wait 5 yrs"]},
+        color_discrete_map={"Investment": FOREST, "Avoidable cost of delay": "#E67E22"},
     )
-
-    fig_scenario.update_traces(
+    fig_bars.update_traces(
         hovertemplate="<b>%{fullData.name}</b><br>%{x}: $%{y:,.0f}<extra></extra>",
     )
 
-    fig_scenario.update_layout(
-        height=500,
-        barmode="stack",
-        yaxis_title="Total cost exposure",
+    for _yrs, _cost in [(1, _c1), (3, _c3), (5, _c5)]:
+        lbl = f"Wait {_yrs} yr" if _yrs == 1 else f"Wait {_yrs} yrs"
+        fig_bars.add_annotation(
+            x=lbl, y=investment_amount + _cost,
+            text=f"<b>{money(_cost)}</b> avoidable",
+            showarrow=False, yshift=16,
+            font=dict(size=13, color=INK, family=PLOTLY_FONT),
+        )
+
+    fig_bars.update_layout(
+        height=380,
         xaxis_title="",
+        yaxis_title="Total cost exposure ($)",
         yaxis_tickprefix="$",
         legend_title_text="",
-        margin=dict(l=20, r=20, t=50, b=40),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="left", x=0),
+        margin=dict(l=20, r=20, t=40, b=40),
     )
 
-    total_wait = investment_amount + delay_cost
-
-    fig_scenario.add_annotation(
-        x="Invest now",
-        y=investment_amount,
-        text=f"<b>{money(investment_amount)}</b>",
-        showarrow=False,
-        yshift=18,
-        font=dict(size=15, color=INK, family=PLOTLY_FONT),
-    )
-    fig_scenario.add_annotation(
-        x=scenario_label,
-        y=total_wait,
-        text=f"<b>{money(total_wait)}</b>",
-        showarrow=False,
-        yshift=18,
-        font=dict(size=15, color=INK, family=PLOTLY_FONT),
-    )
-
-    st.plotly_chart(fig_scenario, use_container_width=True)
+    st.plotly_chart(fig_bars, use_container_width=True)
 
     st.markdown(
         f"""
         <div class="takeaway-box">
-            <b>How to read this:</b> the dark segment is the {money(investment_amount)} transit
-            investment — it's spent either way. The highlighted segment on the right bar is the
-            extra cost the city absorbs simply by waiting {delay_years}
-            {"year" if delay_years == 1 else "years"} instead of funding now.
+            Every year of delay widens the gap. The {money(investment_amount)} investment is the same
+            regardless of when it happens — the orange bar is the additional cost borne by
+            low-income workers while the city waits. At 5 years that's
+            <b>{money(_c5)}</b> in avoidable economic harm, or
+            <b>${_pr5:,.0f} per resident</b>.
         </div>
         """,
         unsafe_allow_html=True,
@@ -1621,151 +1840,128 @@ with tab_scenario:
 
 
 # --------------------------------
-# Tab 3: Cost Breakdown
+# Tab 5: What's Compounding
 # --------------------------------
 with tab_cost:
 
     st.markdown(
-        '<div class="section-title">The Cost of Doing Nothing — Compounding by Component</div>',
+        '<div class="section-title">What\'s Compounding — Year-by-Year Cost of Inaction</div>',
         unsafe_allow_html=True,
     )
 
+    # Distinct, readable colors — no two look the same
     component_columns = {
-        "Lost wages": "lost_wages_annual",
-        "Healthcare": "healthcare_annual",
-        "Environment": "environment_annual",
-        "Education": "education_annual",
-        "Forgone affordability": "forgone_affordability_annual",
+        "Lost wages":           "lost_wages_annual",
+        "Healthcare":           "healthcare_annual",
+        "Environment":          "environment_annual",
+        "Education":            "education_annual",
+        "Forgone affordability":"forgone_affordability_annual",
     }
-
     component_colors = {
-        "Lost wages": FOREST,
-        "Healthcare": CLAY,
-        "Environment": SAND,
-        "Education": TAUPE,
-        "Forgone affordability": INK,
+        "Lost wages":            "#2C5F6E",   # dark teal
+        "Healthcare":            "#C0392B",   # red
+        "Environment":           "#27AE60",   # green
+        "Education":             "#8E44AD",   # purple
+        "Forgone affordability": "#E67E22",   # amber
+    }
+    component_rates = {
+        "Lost wages":            0.035,
+        "Healthcare":            0.045,
+        "Environment":           _growth_rate,
+        "Education":             0.012,
+        "Forgone affordability": 0.03,
     }
 
     available_components = {
-        label: column
-        for label, column in component_columns.items()
-        if column in filtered_df.columns
+        label: col for label, col in component_columns.items()
+        if col in filtered_df.columns
     }
 
-    # Current annual mix per component (this year's actual figures)
-    component_annual_totals = {
-        label: filtered_df[column].sum() for label, column in available_components.items()
-    }
-    annual_component_total = sum(component_annual_totals.values())
-
-    component_shares = (
-        {
-            label: value / annual_component_total
-            for label, value in component_annual_totals.items()
-        }
-        if annual_component_total > 0
-        else {label: 0 for label in component_annual_totals}
-    )
-
-    scenario_order = [
-        f"Wait {y} year" if y == 1 else f"Wait {y} years" for y in [1, 3, 5]
-    ]
-
-    # Apportion each year's known TOTAL cumulative cost across components,
-    # holding each component's share of the mix constant — the same uniform
-    # growth assumption the cost engine itself uses (cost(year N) = sum of
-    # components x growth factor), just rendered component-by-component.
-    stacked_rows = []
-
-    for years in [1, 3, 5]:
-        col_name = f"cumulative_delay_{years}yr_cost"
-
-        if col_name not in filtered_df.columns:
-            continue
-
-        year_total = filtered_df[col_name].sum()
-        scenario_label = f"Wait {years} year" if years == 1 else f"Wait {years} years"
-
-        for label, share in component_shares.items():
-            stacked_rows.append(
-                {
-                    "Delay years": years,
-                    "Scenario": scenario_label,
-                    "Component": label,
-                    "Cost": year_total * share,
-                }
+    # Build year-by-year rows (years 1-5, cumulative)
+    area_rows = []
+    for year in range(1, 6):
+        for label, col in available_components.items():
+            rate = component_rates[label]
+            # Cumulative = sum of year 1 .. year N for this component
+            cum_value = sum(
+                filtered_df[col].sum() * (1 + rate) ** y
+                for y in range(1, year + 1)
             )
+            area_rows.append({
+                "Year": f"Year {year}",
+                "Year_num": year,
+                "Component": label,
+                "Cumulative Cost": cum_value,
+            })
 
-    stacked_df = pd.DataFrame(stacked_rows)
+    area_df = pd.DataFrame(area_rows)
+    total_by_year = area_df.groupby("Year_num")["Cumulative Cost"].sum().reset_index()
 
-    fig_compounding = px.bar(
-        stacked_df,
-        x="Scenario",
-        y="Cost",
+    fig_area = px.area(
+        area_df,
+        x="Year_num",
+        y="Cumulative Cost",
         color="Component",
-        category_orders={
-            "Component": list(available_components.keys()),
-            "Scenario": scenario_order,
-        },
         color_discrete_map=component_colors,
+        category_orders={"Component": list(available_components.keys())},
+        labels={"Year_num": "Year of delay", "Cumulative Cost": "Cumulative cost ($)"},
+        title="Cumulative cost of inaction — compounding year by year",
     )
 
-    fig_compounding.update_traces(
-        hovertemplate="<b>%{fullData.name}</b><br>%{x}: $%{y:,.0f}<extra></extra>",
+    fig_area.update_traces(
+        hovertemplate="<b>%{fullData.name}</b><br>Year %{x}: $%{y:,.0f}<extra></extra>",
     )
 
-    fig_compounding.update_layout(
-        height=540,
-        barmode="stack",
-        xaxis_title="",
-        yaxis_title="Cumulative cost of delay",
+    # Annotate the year 5 total
+    y5_total = total_by_year[total_by_year["Year_num"] == 5]["Cumulative Cost"].sum()
+    fig_area.add_annotation(
+        x=5, y=y5_total,
+        text=f"<b>{money(y5_total)}</b> after 5 years",
+        showarrow=True, arrowhead=2, arrowcolor=INK,
+        ax=-80, ay=-40,
+        font=dict(size=13, color=INK, family=PLOTLY_FONT),
+    )
+
+    fig_area.update_layout(
+        height=500,
+        xaxis=dict(tickmode="array", tickvals=[1,2,3,4,5],
+                   ticktext=["Year 1","Year 2","Year 3","Year 4","Year 5"]),
+        yaxis_title="Cumulative cost of delay ($)",
         yaxis_tickprefix="$",
         legend_title_text="Cost component",
-        margin=dict(l=20, r=20, t=50, b=40),
+        margin=dict(l=20, r=20, t=60, b=40),
     )
 
-    # Bold total label above each stacked bar
-    year_totals = stacked_df.groupby("Scenario", as_index=False)["Cost"].sum()
+    st.plotly_chart(fig_area, use_container_width=True)
 
-    for _, row in year_totals.iterrows():
-        fig_compounding.add_annotation(
-            x=row["Scenario"],
-            y=row["Cost"],
-            text=f"<b>{money(row['Cost'])}</b>",
-            showarrow=False,
-            yshift=20,
-            font=dict(size=15, color=INK, family=PLOTLY_FONT),
-        )
-
-    st.plotly_chart(fig_compounding, use_container_width=True)
-
+    # Dynamic insight line
     largest_component = (
-        max(component_annual_totals, key=component_annual_totals.get)
-        if component_annual_totals
-        else None
+        max({l: filtered_df[c].sum() for l, c in available_components.items()},
+            key=lambda k: filtered_df[available_components[k]].sum())
+        if available_components else "Lost wages"
     )
     largest_share = (
-        component_shares.get(largest_component, 0) if largest_component else 0
+        filtered_df[available_components[largest_component]].sum()
+        / filtered_df[[c for c in available_components.values()]].sum().sum()
+        if available_components else 0
     )
 
     st.markdown(
         f"""
         <div class="takeaway-box">
-            <b>Compounding insight:</b> Waiting <b>{delay_years} years</b> instead of investing now
-            creates about <b>{money(delay_cost)}</b> in cumulative exposure across the selected tracts.
-            <b>{largest_component or "Lost wages"}</b> is the single largest driver, making up about
-            <b>{largest_share:.0%}</b> of the annual cost of inaction — not a single black-box score,
-            but five interpretable components.
+            <b>Compounding insight:</b> Each year of delay adds to the total — costs don't
+            stay flat, they grow. After {delay_years} {"year" if delay_years == 1 else "years"},
+            cumulative exposure reaches <b>{money(delay_cost)}</b>.
+            <b>{largest_component}</b> is the largest driver at <b>{largest_share:.0%}</b>
+            of the annual base — five visible components, not a black-box score.
         </div>
         """,
         unsafe_allow_html=True,
     )
-
     st.caption(
-        "Each bar's component mix is held at its current proportion and scaled with the cost "
-        "engine's compounding growth rate for years 1, 3, and 5 — the same uniform growth "
-        "assumption used to compute total exposure. This is a visualization simplification, "
-        "not a separate model; exact per-component figures by year are in the underlying data."
+        "Stacked area = cumulative cost from year 1 onward. Each band grows at its own rate: "
+        "wages at 3.5%, healthcare at 4.5%, education at 1.2%, environment and affordability "
+        f"at your selected {growth_rate_pct}% growth rate."
     )
 
 # --------------------------------
@@ -1830,144 +2026,109 @@ with tab_equity:
 
     equity_df = equity_df.sort_values("delay_cost", ascending=False)
 
-    left, right = st.columns(2)
+    # Segment colour map — consistent with map and triage tabs
+    _seg_colors = {
+        "High-need transit burden":   FOREST,
+        "Moderate hardship":          CLAY,
+        "Lower-risk, better-served":  TAUPE,
+    }
+    equity_df["_color"] = equity_df["vulnerability_segment"].map(
+        lambda s: _seg_colors.get(s, TAUPE)
+    )
 
-    with left:
-        fig_equity_cost = px.bar(
-            equity_df,
-            x="vulnerability_segment",
-            y="delay_cost",
-            text="delay_cost",
-            title=f"Total {delay_years}-year delay cost by segment",
-            hover_data={
-                "tracts": True,
-                "population": ":,.0f",
-                "avg_hardship": ":.1f",
-                "delay_cost": ":,.0f",
-            },
-        )
+    # ── Headline stat cards ──────────────────────────────────────────────────
+    burdened_segments = equity_df[equity_df["population"] > 0].copy()
+    highest_row = (
+        burdened_segments.loc[burdened_segments["delay_cost_per_capita"].idxmax()]
+        if not burdened_segments.empty else None
+    )
 
-        fig_equity_cost.update_traces(
-            texttemplate="$%{text:,.0f}",
-            textposition="outside",
-            marker_color=FOREST,
-        )
+    if highest_row is not None:
+        _pos = burdened_segments[burdened_segments["delay_cost_per_capita"] > 0]["delay_cost_per_capita"]
+        _multiplier = (highest_row["delay_cost_per_capita"] / _pos.min()) if len(_pos) > 1 and _pos.min() > 0 else None
+        _income = highest_row.get("avg_median_income", None)
+        _vehicle = highest_row.get("avg_pct_no_vehicle", None)
 
-        fig_equity_cost.update_layout(
-            height=460,
-            xaxis_title="",
-            yaxis_title=f"{delay_years}-year delay cost",
-            yaxis_tickprefix="$",
-            margin=dict(l=20, r=40, t=70, b=80),
-        )
-
-        st.plotly_chart(fig_equity_cost, use_container_width=True)
-        st.caption("Scale: total dollars exposed in each segment.")
-
-    with right:
-        per_capita_df = equity_df.sort_values(
-            "delay_cost_per_capita", ascending=False
-        )
-
-        fig_equity_per_capita = px.bar(
-            per_capita_df,
-            x="vulnerability_segment",
-            y="delay_cost_per_capita",
-            text="delay_cost_per_capita",
-            title=f"{delay_years}-year delay cost PER RESIDENT by segment",
-            hover_data={
-                "tracts": True,
-                "population": ":,.0f",
-                "avg_hardship": ":.1f",
-                "delay_cost_per_capita": ":,.0f",
-            },
-        )
-
-        fig_equity_per_capita.update_traces(
-            texttemplate="$%{text:,.0f}",
-            textposition="outside",
-            marker_color=SAND,
-        )
-
-        fig_equity_per_capita.update_layout(
-            height=460,
-            xaxis_title="",
-            yaxis_title="Delay cost per resident",
-            yaxis_tickprefix="$",
-            margin=dict(l=20, r=40, t=70, b=80),
-        )
-
-        st.plotly_chart(fig_equity_per_capita, use_container_width=True)
-        st.caption("Concentration: same dollars, but who actually carries it per person.")
-
-    # Build a dynamic, data-driven callout instead of a static generic blurb —
-    # this is what "names the disproportionately affected groups" means in
-    # practice: an actual segment name and an actual number, not a category.
-    burdened_segments = equity_df[equity_df["population"] > 0]
-
-    if not burdened_segments.empty:
-        highest_row = burdened_segments.loc[
-            burdened_segments["delay_cost_per_capita"].idxmax()
-        ]
-        positive_per_capita = burdened_segments[
-            burdened_segments["delay_cost_per_capita"] > 0
-        ]["delay_cost_per_capita"]
-
-        multiplier_text = ""
-        if len(positive_per_capita) > 1:
-            lowest_value = positive_per_capita.min()
-            if lowest_value > 0 and highest_row["delay_cost_per_capita"] > lowest_value:
-                multiplier = highest_row["delay_cost_per_capita"] / lowest_value
-                if multiplier >= 1.1:
-                    multiplier_text = f", about {multiplier:.1f}x the burden of the least-affected segment"
-
-        income_text = ""
-        if "avg_median_income" in highest_row.index and pd.notna(
-            highest_row.get("avg_median_income")
-        ):
-            income_text = (
-                f" Average median household income there is "
-                f"{money(highest_row['avg_median_income'])}."
-            )
-
-        vehicle_text = ""
-        if "avg_pct_no_vehicle" in highest_row.index and pd.notna(
-            highest_row.get("avg_pct_no_vehicle")
-        ):
-            vehicle_text = (
-                f" About {highest_row['avg_pct_no_vehicle']:.0%} of workers there "
-                f"have no vehicle."
-            )
+        _stat2 = f"{_multiplier:.1f}x the burden of the least-affected segment" if _multiplier and _multiplier >= 1.1 else "highest per-resident burden"
+        _stat3 = f"Avg household income in this segment: {money(_income)}" if pd.notna(_income) else ""
+        _stat4 = f"{_vehicle:.0%} of workers have no vehicle" if _vehicle is not None and pd.notna(_vehicle) else ""
 
         st.markdown(
             f"""
-            <div class="takeaway-box">
-                <b>Who's disproportionately affected:</b> the
-                <b>{highest_row['vulnerability_segment']}</b> segment carries the highest cost
-                per resident — about <b>{money(highest_row['delay_cost_per_capita'])} per
-                person</b>{multiplier_text}.{income_text}{vehicle_text}
+            <div style="display:flex;gap:1rem;margin:0.5rem 0 1.25rem 0;">
+                <div style="flex:1.2;background:#fff;border:1px solid #e2ddd9;border-left:4px solid #C0392B;border-radius:10px;padding:1rem 1.2rem;">
+                    <div style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Highest-burden segment</div>
+                    <div style="font-size:1.5rem;font-weight:700;color:{FOREST};">{highest_row['vulnerability_segment']}</div>
+                    <div style="font-size:0.82rem;color:#555;margin-top:4px;">{_stat2}</div>
+                </div>
+                <div style="flex:1;background:#fff;border:1px solid #e2ddd9;border-left:4px solid #C0392B;border-radius:10px;padding:1rem 1.2rem;">
+                    <div style="font-size:0.72rem;color:#888;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;">Cost per resident · {delay_years}-yr delay</div>
+                    <div style="font-size:1.8rem;font-weight:700;color:#C0392B;">{money(highest_row['delay_cost_per_capita'])}</div>
+                    <div style="font-size:0.82rem;color:#555;margin-top:4px;">{_stat3}</div>
+                </div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    st.markdown(
-        """
-        <div class="callout-box">
-            <div class="callout-icon">ⓘ</div>
-            <div>
-                <b>What this view leaves out:</b> the underlying Census pull does not include
-                race or ethnicity, so this equity lens is built from income, vehicle access,
-                and transit dependency — not race. Treat "disproportionately affected" as
-                economic and access-based, and pair this view with local demographic context
-                before drawing conclusions about specific communities.
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
+    # ── Two charts, consistent ordering and colours ──────────────────────────
+    left, right = st.columns(2)
+
+    with left:
+        # Sort by delay_cost descending — consistent segment order across both charts
+        cost_df = equity_df.sort_values("delay_cost", ascending=False)
+        fig_equity_cost = px.bar(
+            cost_df,
+            x="vulnerability_segment",
+            y="delay_cost",
+            text="delay_cost",
+            title=f"Total {delay_years}-year delay cost by segment",
+            color="vulnerability_segment",
+            color_discrete_map=_seg_colors,
+            hover_data={"tracts": True, "population": ":,.0f", "avg_hardship": ":.1f", "delay_cost": ":,.0f"},
+        )
+        fig_equity_cost.update_traces(texttemplate="$%{text:,.3s}", textposition="outside")
+        _max_cost = equity_df["delay_cost"].max()
+        fig_equity_cost.update_layout(
+            height=420, xaxis_title="", yaxis_title=f"{delay_years}-yr delay cost ($)",
+            yaxis_tickprefix="$", showlegend=False,
+            yaxis_range=[0, _max_cost * 1.2],
+            margin=dict(l=20, r=40, t=30, b=80),
+        )
+        st.plotly_chart(fig_equity_cost, use_container_width=True)
+        st.caption("Total dollars exposed in each segment.")
+
+    with right:
+        # Sort per-capita descending — same segment order as left where possible
+        per_capita_df = equity_df.sort_values("delay_cost", ascending=False)
+        fig_equity_per_capita = px.bar(
+            per_capita_df,
+            x="vulnerability_segment",
+            y="delay_cost_per_capita",
+            text="delay_cost_per_capita",
+            title=f"{delay_years}-year delay cost per resident",
+            color="vulnerability_segment",
+            color_discrete_map=_seg_colors,
+            hover_data={"tracts": True, "population": ":,.0f", "avg_hardship": ":.1f", "delay_cost_per_capita": ":,.0f"},
+        )
+        fig_equity_per_capita.update_traces(texttemplate="$%{text:,.0f}", textposition="outside")
+        _max_pc = equity_df["delay_cost_per_capita"].max()
+        fig_equity_per_capita.update_layout(
+            height=420, xaxis_title="", yaxis_title="Cost per resident ($)",
+            yaxis_tickprefix="$", showlegend=False,
+            yaxis_range=[0, _max_pc * 1.2],
+            margin=dict(l=20, r=40, t=30, b=80),
+        )
+        st.plotly_chart(fig_equity_per_capita, use_container_width=True)
+        st.caption("Same dollars — but who actually carries it per person.")
+
+    st.caption(
+        "Note: this equity lens is built from income, vehicle access, and transit dependency — "
+        "not race or ethnicity, which are not in the underlying Census data. "
+        "Pair with local demographic context before drawing conclusions about specific communities."
     )
 
-    equity_table = equity_df.copy()
+    equity_table = equity_df.drop(columns=["_color"], errors="ignore").copy()
 
     equity_table["annual_cost"] = equity_table["annual_cost"].map(
         lambda x: f"${x:,.0f}"
@@ -2016,251 +2177,274 @@ with tab_equity:
     )
 
 # --------------------------------
-# Tab 6: Assumptions & Responsible AI
+# Tab 6: Responsible AI
 # --------------------------------
 with tab_responsible_ai:
     st.markdown(
-        '<div class="section-title">Assumptions, Uncertainty, and Responsible AI Guardrails</div>',
+        '<div class="section-title">🧭 Responsible AI — When TransitIQ Gets It Wrong</div>',
         unsafe_allow_html=True,
     )
 
-    # Uncertainty widens with the forecast horizon instead of one flat
-    # percentage — a 5-year projection genuinely carries more uncertainty
-    # than a 1-year one, so the displayed range should reflect that rather
-    # than reusing the same ±15% regardless of how far out the estimate reaches.
-    uncertainty_pct_by_horizon = {1: 0.10, 3: 0.15, 5: 0.20}
-    uncertainty_pct = uncertainty_pct_by_horizon.get(delay_years, 0.15)
-
-    uncertainty_df = pd.DataFrame(
-        {
-            "Estimate": ["Low estimate", "Base estimate", "High estimate"],
-            "Cumulative delay cost": [
-                delay_cost * (1 - uncertainty_pct),
-                delay_cost,
-                delay_cost * (1 + uncertainty_pct),
-            ],
-            "Explanation": [
-                f"{uncertainty_pct:.0%} below base estimate",
-                "Current model estimate",
-                f"{uncertainty_pct:.0%} above base estimate",
-            ],
-        }
-    )
-
-    fig_uncertainty = px.bar(
-        uncertainty_df,
-        x="Estimate",
-        y="Cumulative delay cost",
-        text="Cumulative delay cost",
-        hover_data=["Explanation"],
-        color="Estimate",
-        category_orders={"Estimate": ["Low estimate", "Base estimate", "High estimate"]},
-        color_discrete_map={
-            "Low estimate": TAUPE,
-            "Base estimate": FOREST,
-            "High estimate": SAND,
-        },
-    )
-
-    fig_uncertainty.update_traces(
-        texttemplate="$%{text:,.0f}",
-        textposition="outside",
-    )
-
-    fig_uncertainty.update_layout(
-        height=440,
-        yaxis_title="Cumulative delay cost",
-        xaxis_title="",
-        yaxis_tickprefix="$",
-        margin=dict(l=20, r=40, t=50, b=40),
-        showlegend=False,
-    )
-
-    st.plotly_chart(fig_uncertainty, use_container_width=True)
-
-    st.caption(
-        f"The band widens with the forecast horizon — ±{uncertainty_pct:.0%} for a "
-        f"{delay_years}-year projection — rather than one flat percentage regardless of "
-        "how far out the estimate reaches. This is a simplified sensitivity range, not a "
-        "statistical confidence interval; its purpose is to show planners a range instead "
-        "of a single number."
-    )
-
-    st.markdown(
-        '<div class="section-title">Human-in-the-Loop Design</div>',
-        unsafe_allow_html=True,
-    )
-
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-        st.markdown(
-            """
-            <div class="takeaway-box">
-                <b>What the AI does not decide:</b><br>
-                TransitIQ never allocates funding. It estimates cost exposure, clusters
-                tracts into vulnerability segments, and surfaces tradeoffs. A human planner
-                always makes the final call on which tracts get funded.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with col2:
-        st.markdown(
-            """
-            <div class="takeaway-box">
-                <b>Decisions requiring two review cycles:</b><br>
-                Any recommendation touching a tract with an elevated displacement-risk
-                score, or that would commit significant funding, should pass through two
-                independent reviews — one by the planning team validating the underlying
-                data, one by a community or equity reviewer assessing displacement and
-                fairness — before going to council.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with col3:
-        st.markdown(
-            """
-            <div class="takeaway-box">
-                <b>When not to use this tool alone:</b><br>
-                Not without community review, local context, engineering feasibility,
-                legal review, and anti-displacement planning. A high hardship score should
-                trigger deeper review, not automatic intervention.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    st.markdown(
-        '<div class="section-title">Primary Risk &amp; Mitigation</div>',
-        unsafe_allow_html=True,
-    )
-
-    risk_col, mitigation_col = st.columns(2)
-
-    with risk_col:
-        st.markdown(
-            """
-            <div class="takeaway-box">
-                <b>Risk — false positives:</b><br>
-                A tract flagged "high-need" could misdirect funding toward the wrong
-                neighborhood if the underlying data is incomplete, stale, or drawn from a
-                small or suppressed-population tract.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with mitigation_col:
-        st.markdown(
-            """
-            <div class="takeaway-box">
-                <b>Mitigation:</b><br>
-                Require planner review before any funding decision; never auto-allocate.
-                Per-tract data-quality flagging (e.g. surfacing which tracts have
-                suppressed or imputed Census values) is identified as a v1.5 priority and
-                is not yet implemented in this dataset — stated here rather than implied.
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    st.markdown(
-        '<div class="section-title">Core Model Assumptions</div>',
-        unsafe_allow_html=True,
-    )
-
-    assumptions_df = pd.DataFrame(
-        {
-            "Model Area": [
-                "Transit hardship",
-                "Delay scenarios",
-                "Cost components",
-                "Uncertainty",
-                "Equity interpretation",
-                "Safety and displacement",
-            ],
-            "Assumption": [
-                "Higher hardship means a tract has more transit access burden and socioeconomic vulnerability.",
-                "The dashboard compares 1, 3, and 5-year delay scenarios using precomputed cost outputs.",
-                "Annual cost includes lost wages, healthcare, environment, education, and forgone affordability.",
-                "The uncertainty range widens with the forecast horizon (±10% at 1 year, ±15% at 3 years, ±20% at 5 years) around the base estimate.",
-                "Segment-level results are used to show distributional burden, not to rank people or assign blame. Built from income, vehicle access, and transit dependency — not race, which isn't in the underlying data.",
-                "Safety and displacement indicators are warning overlays that require separate policy review.",
-            ],
-            "Dashboard Use": [
-                "Color the map and identify high-need tracts.",
-                "Show how cost exposure changes when intervention is delayed.",
-                "Explain where the annual cost of inaction comes from.",
-                "Avoid presenting model outputs as exact predictions.",
-                "Help planners understand who may be most affected, and by what measures.",
-                "Prevent transit investment from being interpreted without broader planning safeguards.",
-            ],
-        }
-    )
-
-    st.dataframe(
-        assumptions_df,
-        use_container_width=True,
-        hide_index=True,
-    )
-
+    # ── 3 Failure Mode Cards ──
     st.markdown(
         """
-        <div class="takeaway-box">
-            <b>Why this matters:</b> TransitIQ intentionally shows its assumptions,
-            uncertainty, and limitations inside the dashboard itself. That transparency is what
-            keeps a policy model from being mistaken for a perfect prediction.
+        <div style="display:flex;gap:1rem;margin:1.2rem 0;">
+
+          <!-- Failure 1: Displacement Paradox -->
+          <div style="flex:1;background:#fff;border:1px solid #e2ddd9;border-radius:12px;padding:1.2rem 1.4rem;border-top:4px solid #C0392B;">
+            <div style="font-size:1rem;font-weight:700;color:#1a1a1a;margin-bottom:8px;">The Displacement Paradox</div>
+            <div style="font-size:0.85rem;color:#444;line-height:1.55;margin-bottom:10px;">
+              TransitIQ flags a tract as high-need → city invests → rents rise → the residents it was built to help get priced out.
+            </div>
+            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:#888;margin-bottom:4px;">Who gets harmed</div>
+            <div style="font-size:0.85rem;color:#444;margin-bottom:10px;">Transit-dependent renters in the funded tract.</div>
+            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:#27AE60;margin-bottom:4px;">Design response</div>
+            <div style="font-size:0.85rem;color:#444;">
+              Displacement warning fires on <b>every</b> scenario before any recommendation is shown. High-displacement tracts are flagged in the triage table.
+            </div>
+          </div>
+
+          <!-- Failure 2: Suppressed Data -->
+          <div style="flex:1;background:#fff;border:1px solid #e2ddd9;border-radius:12px;padding:1.2rem 1.4rem;border-top:4px solid #E67E22;">
+            <div style="font-size:1rem;font-weight:700;color:#1a1a1a;margin-bottom:8px;">Suppressed Data → Wrong Tract</div>
+            <div style="font-size:0.85rem;color:#444;line-height:1.55;margin-bottom:10px;">
+              Small-population tracts have suppressed ACS values. TransitIQ may score them high-priority using incomplete data, misdirecting funding from genuinely high-need areas.
+            </div>
+            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:#888;margin-bottom:4px;">Who gets harmed</div>
+            <div style="font-size:0.85rem;color:#444;margin-bottom:10px;">Residents of the high-need tract that loses out on funding.</div>
+            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:#27AE60;margin-bottom:4px;">Design response</div>
+            <div style="font-size:0.85rem;color:#444;">
+              Assumptions are live in the sidebar for stress-testing. Per-tract data-quality flagging is a known gap and will be implemented in a future version.
+            </div>
+          </div>
+
+          <!-- Failure 3: Cluster Flip -->
+          <div style="flex:1;background:#fff;border:1px solid #e2ddd9;border-radius:12px;padding:1.2rem 1.4rem;border-top:4px solid #8E44AD;">
+            <div style="font-size:1rem;font-weight:700;color:#1a1a1a;margin-bottom:8px;">The Borderline Tract Problem</div>
+            <div style="font-size:0.85rem;color:#444;line-height:1.55;margin-bottom:10px;">
+              A tract near a cluster boundary can flip from "High-need" to "Moderate" with a small data update, dropping off the investment shortlist entirely.
+            </div>
+            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:#888;margin-bottom:4px;">Who gets harmed</div>
+            <div style="font-size:0.85rem;color:#444;margin-bottom:10px;">Residents of borderline tracts whose segment assignment is unstable.</div>
+            <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;color:#27AE60;margin-bottom:4px;">Design response</div>
+            <div style="font-size:0.85rem;color:#444;">
+              Priority Score blends hardship index and per-capita delay cost equally, so a segment flip doesn't auto-remove a tract. Raw scores shown alongside labels.
+            </div>
+          </div>
+
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-# --------------------------------
-# Tab 4: High-Hardship Tracts
-# --------------------------------
-with tab_tracts:
+    # ── Uncertainty band ──
     st.markdown(
-        '<div class="section-title">Highest Hardship Tracts</div>',
+        '<div class="section-title" style="margin-top:1.5rem;">Model Uncertainty — A Range, Not a Prediction</div>',
         unsafe_allow_html=True,
     )
 
-    display_cols = [
-        "GEOID",
-        "transit_hardship_index",
-        "vulnerability_segment",
-        "cost_of_inaction_annual",
-        delay_col,
-        "total_population",
-    ]
+    uncertainty_pct_by_horizon = {1: 0.10, 3: 0.15, 5: 0.20}
+    uncertainty_pct = uncertainty_pct_by_horizon.get(delay_years, 0.15)
+    _unc_low  = delay_cost * (1 - uncertainty_pct)
+    _unc_high = delay_cost * (1 + uncertainty_pct)
 
-    available_cols = [col for col in display_cols if col in filtered_df.columns]
-
-    top_tracts = (
-        filtered_df[available_cols]
-        .sort_values("transit_hardship_index", ascending=False)
-        .head(15)
-        .copy()
+    st.markdown(
+        f"""
+        <div style="background:#fff;border:1px solid #e2ddd9;border-radius:12px;padding:1.2rem 1.6rem;margin-bottom:1rem;">
+            <div style="display:flex;gap:2rem;align-items:center;">
+                <div style="text-align:center;flex:1;">
+                    <div style="font-size:0.7rem;color:#888;text-transform:uppercase;letter-spacing:.06em;">Low estimate (−{uncertainty_pct:.0%})</div>
+                    <div style="font-size:1.5rem;font-weight:700;color:{TAUPE};">{money(_unc_low)}</div>
+                </div>
+                <div style="text-align:center;flex:1;border-left:1px solid #e2ddd9;border-right:1px solid #e2ddd9;padding:0 1rem;">
+                    <div style="font-size:0.7rem;color:#888;text-transform:uppercase;letter-spacing:.06em;">Base estimate</div>
+                    <div style="font-size:1.8rem;font-weight:700;color:{FOREST};">{money(delay_cost)}</div>
+                    <div style="font-size:0.75rem;color:#999;">current model output</div>
+                </div>
+                <div style="text-align:center;flex:1;">
+                    <div style="font-size:0.7rem;color:#888;text-transform:uppercase;letter-spacing:.06em;">High estimate (+{uncertainty_pct:.0%})</div>
+                    <div style="font-size:1.5rem;font-weight:700;color:#C0392B;">{money(_unc_high)}</div>
+                </div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.caption(
+        f"Uncertainty band widens with the forecast horizon — ±{uncertainty_pct:.0%} for a "
+        f"{delay_years}-year projection. This is a simplified sensitivity range, not a statistical "
+        "confidence interval. Its purpose: show planners a plausible range instead of a false-precision single number."
     )
 
-    rename_map = {
-        "GEOID": "Tract GEOID",
-        "transit_hardship_index": "Hardship Index",
-        "vulnerability_segment": "Vulnerability Segment",
-        "cost_of_inaction_annual": "Annual Cost",
-        delay_col: f"{delay_years}-Year Delay Cost",
-        "total_population": "Population",
+    # ── Assumptions table ──
+    st.markdown(
+        '<div class="section-title" style="margin-top:1.5rem;">Core Model Assumptions</div>',
+        unsafe_allow_html=True,
+    )
+
+    assumptions_df = pd.DataFrame({
+        "Model area": [
+            "Transit hardship index",
+            "Cost components",
+            "Compounding rates",
+            "Uncertainty band",
+            "Vulnerability segments",
+            "Displacement overlay",
+        ],
+        "Assumption": [
+            "Higher score = more transit burden + socioeconomic vulnerability. Weighted composite of 5 ACS/GTFS inputs.",
+            "Annual cost = lost wages + healthcare + environment + education + forgone affordability. Each sourced independently (BLS, Urban Institute, EPA).",
+            "Wages 3.5%, healthcare 4.5%, education 1.2%, environment and affordability use your selected growth rate slider.",
+            "±10% at 1 year, ±15% at 3 years, ±20% at 5 years. Wider band = more honest at longer horizons.",
+            "K-means (3 clusters) on hardship index. Borderline tracts may shift with data updates — raw scores shown alongside labels.",
+            "Displacement risk is a proxy indicator, not a prediction. Requires separate community and legal review before acting on it.",
+        ],
+        "What we'd need to tighten it": [
+            "Longitudinal ridership data; COTA OD matrices.",
+            "Local healthcare cost data; tract-level wage surveys.",
+            "CPI sub-index by cost category; local rent trend data.",
+            "Monte Carlo simulation with per-variable distributions.",
+            "Soft-clustering (fuzzy c-means) to surface borderline confidence.",
+            "Parcel-level rent change data; community-based review process.",
+        ],
+    })
+
+    # Render as HTML table so text wraps naturally
+    _rows_html = ""
+    for _, row in assumptions_df.iterrows():
+        _rows_html += f"""
+        <tr>
+            <td style="padding:10px 14px;font-weight:600;color:#1a1a1a;white-space:nowrap;vertical-align:top;border-bottom:1px solid #e2ddd9;">{row['Model area']}</td>
+            <td style="padding:10px 14px;color:#444;line-height:1.5;vertical-align:top;border-bottom:1px solid #e2ddd9;">{row['Assumption']}</td>
+            <td style="padding:10px 14px;color:#666;line-height:1.5;vertical-align:top;border-bottom:1px solid #e2ddd9;">{row["What we'd need to tighten it"]}</td>
+        </tr>"""
+
+    st.markdown(
+        f"""
+        <table style="width:100%;border-collapse:collapse;font-size:0.85rem;background:#fff;border:1px solid #e2ddd9;border-radius:8px;overflow:hidden;">
+            <thead>
+                <tr style="background:#f5f2ef;">
+                    <th style="padding:10px 14px;text-align:left;color:#888;font-size:0.72rem;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #e2ddd9;white-space:nowrap;">Model area</th>
+                    <th style="padding:10px 14px;text-align:left;color:#888;font-size:0.72rem;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #e2ddd9;">Assumption</th>
+                    <th style="padding:10px 14px;text-align:left;color:#888;font-size:0.72rem;text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid #e2ddd9;">What we'd need to tighten it</th>
+                </tr>
+            </thead>
+            <tbody>{_rows_html}</tbody>
+        </table>
+        """,
+        unsafe_allow_html=True,
+    )
+
+# --------------------------------
+# Tab 3: Where to Invest First
+# --------------------------------
+with tab_tracts:
+    st.markdown(
+        '<div class="section-title">🎯 Where to Invest First — Priority Triage</div>',
+        unsafe_allow_html=True,
+    )
+
+    # Build the working dataframe with raw numbers first
+    triage_cols = [
+        "GEOID", "tract_label", "transit_hardship_index",
+        "vulnerability_segment", "cost_of_inaction_annual",
+        delay_col, "total_population",
+    ]
+    triage_cols = [c for c in triage_cols if c in filtered_df.columns]
+
+    triage_df = (
+        filtered_df[triage_cols]
+        .sort_values("transit_hardship_index", ascending=False)
+        .head(20)
+        .copy()
+        .reset_index(drop=True)
+    )
+    triage_df.index = triage_df.index + 1  # Rank starts at 1
+
+    # Compute priority score: equal weight on normalised hardship + normalised per-capita cost
+    triage_df["delay_cost_per_resident"] = (
+        triage_df[delay_col] / triage_df["total_population"].replace(0, pd.NA)
+    ).fillna(0)
+
+    hi_min, hi_max = triage_df["transit_hardship_index"].min(), triage_df["transit_hardship_index"].max()
+    pc_min, pc_max = triage_df["delay_cost_per_resident"].min(), triage_df["delay_cost_per_resident"].max()
+
+    triage_df["_norm_hi"] = (triage_df["transit_hardship_index"] - hi_min) / (hi_max - hi_min + 1e-9)
+    triage_df["_norm_pc"] = (triage_df["delay_cost_per_resident"] - pc_min) / (pc_max - pc_min + 1e-9)
+    triage_df["priority_score"] = ((triage_df["_norm_hi"] + triage_df["_norm_pc"]) / 2 * 100).round(1)
+
+    # ── Bar chart: top 10 by delay cost per resident ──────────────────────
+    chart_df = triage_df.nlargest(10, "delay_cost_per_resident").sort_values(
+        "delay_cost_per_resident", ascending=True
+    )
+    segment_colors = {
+        "High-need transit burden": FOREST,
+        "Moderate hardship": CLAY,
+        "Lower-risk, better-served": TAUPE,
     }
+    chart_df["color"] = chart_df["vulnerability_segment"].map(segment_colors).fillna(TAUPE)
+    chart_df["label"] = chart_df["delay_cost_per_resident"].apply(lambda x: f"${x:,.0f}")
 
-    top_tracts = top_tracts.rename(columns=rename_map)
+    fig_triage = px.bar(
+        chart_df,
+        x="delay_cost_per_resident",
+        y="tract_label",
+        orientation="h",
+        text="label",
+        title=f"Top 10 tracts — {delay_years}-year delay cost per resident",
+        color="vulnerability_segment",
+        color_discrete_map=segment_colors,
+    )
+    fig_triage.update_traces(textposition="outside", cliponaxis=False)
+    fig_triage.update_layout(
+        height=400,
+        xaxis_title="Delay cost per resident ($)",
+        yaxis_title="",
+        xaxis_tickprefix="$",
+        legend_title_text="Segment",
+        margin=dict(l=10, r=120, t=60, b=20),
+        showlegend=True,
+    )
+    st.plotly_chart(fig_triage, use_container_width=True)
 
-    st.dataframe(
-        top_tracts,
-        use_container_width=True,
-        hide_index=True,
+    st.markdown(
+        '<div class="section-title" style="margin-top:1.5rem;">Full Priority Table — Top 20 Tracts</div>',
+        unsafe_allow_html=True,
+    )
+
+    # Format for display
+    display_df = triage_df.copy()
+    display_df["priority_score"] = display_df["priority_score"].apply(lambda x: f"{x:.0f}/100")
+    display_df["transit_hardship_index"] = display_df["transit_hardship_index"].apply(lambda x: f"{x:.1f}")
+    display_df["cost_of_inaction_annual"] = display_df["cost_of_inaction_annual"].apply(money)
+    display_df[delay_col] = display_df[delay_col].apply(money)
+    display_df["delay_cost_per_resident"] = display_df["delay_cost_per_resident"].apply(lambda x: f"${x:,.0f}")
+    display_df["total_population"] = display_df["total_population"].apply(lambda x: f"{x:,.0f}")
+
+    display_df = display_df.rename(columns={
+        "tract_label": "Tract",
+        "transit_hardship_index": "Hardship Index",
+        "vulnerability_segment": "Segment",
+        "cost_of_inaction_annual": "Annual Cost",
+        delay_col: f"{delay_years}-Yr Delay Cost",
+        "delay_cost_per_resident": "Cost / Resident",
+        "total_population": "Population",
+        "priority_score": "Priority Score",
+        "GEOID": "GEOID",
+    })
+
+    col_order = [
+        "Tract", "Priority Score", "Hardship Index", "Segment",
+        "Annual Cost", f"{delay_years}-Yr Delay Cost", "Cost / Resident",
+        "Population", "GEOID",
+    ]
+    display_df = display_df[[c for c in col_order if c in display_df.columns]]
+
+    st.dataframe(display_df, use_container_width=True, hide_index=False)
+
+    st.caption(
+        "Priority Score = equal-weighted blend of Transit Hardship Index and delay cost per resident, "
+        "both normalised to 0–100. Sort by Priority Score or Cost / Resident to find your highest-impact targets."
     )
 
 # --------------------------------
